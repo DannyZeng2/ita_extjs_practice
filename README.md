@@ -1,7 +1,9 @@
 # ita_extjs_practice
 
 ### 课后作业  
-/ITA_Project/homework
+位置：/ITA_Project/homework
+
+第一天：BingDemo.html
 
 ### 课堂练习   
-/ITA_Project/practice
+位置：/ITA_Project/practice
