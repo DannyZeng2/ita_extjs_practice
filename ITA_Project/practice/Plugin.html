@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="../../resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="../../ext-all.js" type="text/javascript"></script>
+    <title>Document</title>
+    <script>
+        Ext.onReady(function () {
+
+            ColorPlugin = function () {
+                this.init = function (cmp) {
+                    cmp.bodyStyle = 'color:red';
+                    console.log(cmp);
+                }
+            };
+
+            var panel = new Ext.Panel({
+                renderTo: 'panel1',
+                plugins: [new ColorPlugin()],
+                width: 400,
+                autoHeight: true,
+                title: 'Plain Panel',
+                html: 'Plugins provide custom functionality for the component; a plugin is an ExtJS class that usually dont need to extend any ExtJS class',
+            });
+            panel.render();
+        }) 
+    </script>
+</head>
+
+<body>
+    <div id='panel1'></div>
+</body>
+
+</html>

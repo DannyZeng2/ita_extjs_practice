@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <link href="../../resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="../../ext-all.js" type="text/javascript"></script>
+    <Script>
+        Ext.onReady(function () {
+
+            Ext.ns('com.ita');
+            com.ita.BingTabPanel = Ext.extend(Ext.TabPanel, {
+                text: 'bing-tabpanel',
+                initComponent: function () {
+                    com.ita.BingTabPanel.superclass.initComponent.call(this);
+                    this.add({
+                        title: '国内版',
+                        html: ''
+                    });
+                    this.add({
+                        title: '国际版',
+                        html: ''
+                    });
+                    this.activate(0);
+                },
+            });
+            Ext.reg('com.ita.BingTabPanel', com.ita.BingTabPanel);
+
+            var container = new Ext.Container({
+                renderTo: 'helloworld',
+                layout: 'table',
+                layoutConfig: {
+                    columns: 4,
+                },
+                style: 'margin:200px 0px 0px 160px;',
+
+                items: [
+                    {
+                        colspan: 2,
+                        xtype: 'box',
+                        height: 50,
+                        autoEl: {
+                            tag: 'img',
+                            src: '../img/bing-logo.png'
+                        },
+                        style: 'margin:20px 20px 0px 0px;',
+                    },
+                    {
+                        xtype: 'container',
+                        items: [{
+                            colspan: 2,
+                            xtype: 'com.ita.BingTabPanel',
+                            plain: true,
+                            width: 600,
+                            height: 0
+                        }, {
+                            xtype: 'field',
+                            width: 600,
+                            height: 41,
+                        }]
+                    },
+                    {
+                        xtype: 'button',
+                        width: 60,
+                        height: 40,
+                        text: '搜索',
+                        style: 'margin:30px 0px 0px 0px;',
+
+                    }]
+            });
+        });
+    </Script>
+</head>
+
+<body background="../img/bing.jpg">
+    
+    <div id="helloworld"></div>
+</body>
+
+</html>

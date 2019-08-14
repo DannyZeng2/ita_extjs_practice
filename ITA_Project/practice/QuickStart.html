@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+    <link href="../../resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="../../ext-all.js" type="text/javascript"></script>
+    <script>
+        Ext.onReady(function () {
+            var container = new Ext.Container({
+                renderTo: 'test',
+                layout: 'table',
+                layoutConfig: {
+                    columns: 2
+                },
+                items: [{
+                    colspan: 2,
+                    width: 900,
+                    layout: 'hbox',
+                    layoutConfig: {
+                        pack: 'center'
+                    },
+                    xtype: 'container',
+                    items: [{
+                        xtype: 'box',
+                        height: 100,
+                        autoEl: {
+                            tag: 'img',
+                            src: 'google-search.png'
+                        }
+                    }]
+                }, {
+                    xtype: 'field',
+                    colspan: 2,
+                    width: 1200,
+                    height: 50
+                }, {
+                    xtype: 'container',
+                    layout: {
+                        type: 'hbox',
+                        pack: 'center'
+                    },
+                    colspan: 2,
+                    defaultType: 'container',
+                    width: 1200,
+                    height: 50,
+                    items: [{
+                        columnWidth: .5,
+                        height: 50,
+                        style: 'margin-right: 25px; margin-top: 10px',
+                        items: [{
+                            xtype: 'button',
+                            width: 80,
+                            height: 40,
+                            text: '谷歌搜索'
+                        }]
+                    }, {
+                        columnWidth: .5,
+                        style: 'margin-left:25px;margin-top: 10px',
+                        height: 50,
+                        items: [{
+                            xtype: 'button',
+                            width: 80,
+                            height: 40,
+                            text: '手气不错'
+                        }]
+                    }]
+                }]
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="test"></div>
+</body>
+
+</html>

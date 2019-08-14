@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="../../resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="../../ext-all.js" type="text/javascript"></script>
+    <script>
+        Ext.onReady(function () {
+            {
+                Bird = Ext.extend(Ext.util.Observable, {
+                    constructor: function (config) {
+                        this.name = config.name;
+                        this.addEvents('fly', 'sing');
+                        Bird.superclass.constructor.call(this.config);
+                    }
+                });
+                var bird = new Bird({
+                    name: 'Bird1'
+                });
+                bird.on('fly', function () {
+                    Ext.Msg.alert('Flying', bird.name + " is flying");
+                });
+                bird.on('sing', function () {
+                    Ext.Msg.alert('Singing', bird.name + 'is Singing');
+                });
+                Ext.get('bird_flying').on('click', function () {
+                    bird.fireEvent('fly');
+                });
+                Ext.get('bird_singing').on('click', function () {
+                    bird.fireEvent('sing');
+                })
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <input type="button" id="bird_flying" value="Click Bird Flying" />
+    <input type="button" id="bird_singing" value="Click Bird Singing" />
+</body>
+
+</html>
