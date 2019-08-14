@@ -1,0 +1,38 @@
+.x-tab-right {
+    background-image: unset !important;
+    background-color: #FFFFFF !important;
+    height: 37px;
+    width: 90px;
+}
+
+.x-tab-left {
+    background-image: unset !important;
+    background-color: #FFFFFF !important;
+}
+
+.x-tab-strip-inner {
+    background-image: unset !important;
+    background-color: #FFFFFF !important;
+}
+
+.icon {
+    position: relative;
+    left: -35px;
+    top: 13px;
+    cursor: pointer;
+}
+
+.x-tab-strip-active span.x-tab-strip-text {
+    font: normal 20px tahoma, arial, helvetica;
+    color: #000000;
+    font-weight: bold;
+}
+
+.x-tab-strip span.x-tab-strip-text {
+    font-size: 20px;
+    color: #000000;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 4px 0;
+    
+}
