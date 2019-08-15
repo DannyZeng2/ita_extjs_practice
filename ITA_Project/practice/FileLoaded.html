@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="../../resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="../../ext-all.js" type="text/javascript"></script>
+    <title>Document</title>
+    <script>
+        Ext.onReady(function () {
+
+            var jsonReader = new Ext.data.JsonReader({}, [
+                { name: 'name', type: 'string' },
+                { name: 'age', type: 'int' },
+                { name: 'birthday', type: 'date', dateFormat: 'Y-m-dTH:i:s' },
+                { name: 'address', type: 'string' }
+            ]);
+
+            var birthday = new Ext.form.DateField({
+                name: 'birthday',
+                fieldLabel: '生日',
+                emptyText: 'please tell us your birthday',
+                format: 'Y- m - d',
+                disabledDays: [0, 6]
+            });
+
+            var address = new Ext.form.ComboBox({
+                name: 'address',
+                fieldLabel: '地址',
+                emptyText: 'Choose/Input your province',
+                mode: 'local',
+                store: new Ext.data.ArrayStore({
+                    id: 0,
+                    fields: ['province', 'description'],
+                    data: [['gd', '广东省'], ['gx', '广西省'], ['hn', '湖南省']]
+                }),
+                valueField: 'province',
+                displayField: 'description'
+            });
+
+            var myForm = new Ext.form.FormPanel({
+                id: 'myForm',
+                defaultType: 'textfield',
+                renderTo: 'form',
+                title: 'myForm',
+                labelWidth: 50,
+                width: 300,
+                heigth: 500,
+                frame: true,
+                reader: jsonReader,
+
+                items: [{
+                    id: '姓名',
+                    name:'name',
+                    fieldLabel: 'name',
+                }, {
+                    id: '年龄',
+                    name: 'age',
+                    fieldLabel: 'age',
+                }, 
+                birthday, 
+                
+                address,
+                ],
+                buttons: [{
+                    id: 'reset',
+                    text: 'reset',
+                }, {
+                    id: 'load',
+                    text: 'load',
+                }],
+
+            });
+
+            Ext.get('reset').on("click", function () {
+                Ext.getCmp('myForm').getForm().reset();
+            });
+
+            Ext.get('load').on("click", function () {
+                Ext.getCmp('myForm').getForm().load({url: 'json_reader.txt'});
+            });
+
+            myForm.render();
+
+
+        }) 
+    </script>
+</head>
+
+<body>
+    <div id='form'></div>
+</body>
+
+</html>
