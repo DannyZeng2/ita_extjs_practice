@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="../../resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="../../ext-all.js" type="text/javascript"></script>
+    <title>Document</title>
+    <script>
+        Ext.onReady(function () {
+
+            var province = new Ext.form.ComboBox({
+                id: 'province',
+                fieldLabel: 'Province',
+                emptyText: 'Choose/Input your province',
+                mode: 'local',
+                store: new Ext.data.ArrayStore({
+                    id: 0,
+                    fields: ['province', 'description'],
+                    data: [['gd', '广东省'], ['gx', '广西省'], ['hn', '湖南省']]
+                }),
+                valueField: 'province',
+                displayField: 'description'
+            });
+
+            var textArea = new Ext.form.TextArea({
+                id: 'textArea',
+                width: 200,
+                grow: true,
+                preventScrollbars: true,
+                fieldLabel: 'City',
+                allowBlank: false,
+                emptyText: 'display all the cities',
+                maxLength: 20,
+                minLength: 5,
+            });
+
+
+            var myForm = new Ext.form.FormPanel({
+                id: 'myForm',
+                defaultType: 'textfield',
+                renderTo: 'form',
+                title: 'myForm',
+                labelWidth: 80,
+                width: 300,
+                heigth: 500,
+                frame: true,
+                items: [province,textArea],
+                buttons: [{
+                    id: 'reset',
+                    text: 'reset',
+                }, {
+                    id: 'submit',
+                    text: 'submit',
+                }],
+
+            });
+            myForm.render();
+
+            Ext.get('reset').on("click", function () {
+                Ext.getCmp('myForm').getForm().reset();
+            });
+
+            Ext.get('submit').on("click", function () {
+                if(Ext.getCmp('province').getValue() === 'gd'){
+                    Ext.getCmp('textArea').setValue('广州市，珠海市')
+                } else if(Ext.getCmp('province').getValue() === 'gx'){
+                    Ext.getCmp('textArea').setValue('梧州市，南宁市')
+                } else if(Ext.getCmp('province').getValue() === 'hn'){
+                    Ext.getCmp('textArea').setValue('长沙市，湘潭市')
+                } 
+            });
+        })
+
+    </script>
+</head>
+
+<body>
+    <div id='form'></div>
+</body>
+
+</html>
