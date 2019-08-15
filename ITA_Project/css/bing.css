@@ -2,7 +2,8 @@
     background-image: unset !important;
     background-color: #FFFFFF !important;
     height: 37px;
-    width: 90px;
+    width: 70px;
+    opacity:0.7;
 }
 
 .x-tab-left {
@@ -26,13 +27,14 @@
     font: normal 18px tahoma, arial, helvetica;
     color: #000000;
     font-weight: bold;
+    
 }
+
 
 .x-tab-strip span.x-tab-strip-text {
     font-size: 18px;
     color: #000000;
-    white-space: nowrap;
     cursor: pointer;
-    padding: 4px 0;
-    
+    padding: 5px 0;
+    opacity:0.8; 
 }
