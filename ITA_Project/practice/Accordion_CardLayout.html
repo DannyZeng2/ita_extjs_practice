@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="../../resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="../../ext-all.js" type="text/javascript"></script>
+    <title>Document</title>
+    <script>
+        Ext.onReady(function () {
+
+            var navHandler = function (direction) {
+
+                var wizard = Ext.getCmp('wizard').layout;
+                var prev = Ext.getCmp('move-prev');
+                var next = Ext.getCmp('move-next');
+                var activeId = wizard.activeItem.id;
+
+                if (activeId == 'card-0') {
+                    if (direction == 1) {
+                        wizard.setActiveItem(1);
+                        prev.setDisabled(false);
+                    }
+                } else if (activeId == 'card-1') {
+                    if (direction == -1) {
+                        wizard.setActiveItem(0);
+                        prev.setDisabled(true);
+                    } else {
+                        wizard.setActiveItem(2);
+                        next.setDisabled(true);
+                    }
+                } else if (activeId == 'card-2') {
+                    if (direction == -1) {
+                        wizard.setActiveItem(1);
+                        next.setDisabled(false);
+                    }
+                }
+            };
+
+            var formPanel = new Ext.form.FormPanel({
+                layout: 'border',
+                region: 'center',
+                split: true,
+                border: true,
+                items: [{
+                    id: 'wizard',
+                    width: 200,
+                    height:600,
+                    title: 'card',
+                    layout: 'card',
+                    activeItem: 0,
+                    bodyStyle: 'padding:15px',
+                    defaults: {
+                        border: false
+                    },
+                    items: [{
+                        id: 'card-0',
+                        html: '<p>第一步</p>'
+                    }, {
+                        id: 'card-1',
+                        html: '<p>第二步</p>'
+                    }, {
+                        id: 'card-2',
+                        html: '<p>第三步</p>'
+                    }],
+                    bbar: [{
+                        id: 'move-prev',
+                        text: '上一步',
+                        handler: navHandler.createDelegate(this, [-1]),
+                        disabled: true
+                    }, '->', {
+                        id: 'move-next',
+                        text: '下一步',
+                        handler: navHandler.createDelegate(this, [1])
+                    }],
+
+
+                }]
+            });
+
+            var viewport = new Ext.Viewport({
+                layout: 'border',
+                items: [{
+                    region: 'west',
+                    width: 200,
+                    layout: 'accordion',
+                    layoutConfig: {
+                        titleCollapse: true,
+                        animate: true,
+                        activeOnTop: false
+                    },
+                    items: [{
+                        title: 'First Section',
+                        html: 'First Section'
+                    }, {
+                        title: 'Second Section',
+                        html: 'Second Section'
+                    }, {
+                        title: 'Third Section',
+                        html: 'Third Section'
+                    }]
+                }, formPanel]
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
