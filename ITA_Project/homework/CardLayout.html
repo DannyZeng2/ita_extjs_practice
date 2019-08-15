@@ -41,10 +41,31 @@
                         next.setDisabled(false);
                     }
                 }
+            };
+
+            var question1 = new Ext.form.FormPanel({
+                id: 'testForm',
+				labelAlign: 'center',
+				labelWidth: 50,
+				frame: true,
+				width: 350,
+				items: [{
+				xtype:'fieldset', 
+				title: 'Q1：番茄酱属于以下哪种垃圾？（单选题）',
+				defaultType: 'radio',
+				items: [{boxLabel: '湿垃圾', name: 'vehicle', inputValue: 'car', checked: true}, 
+						{boxLabel: '干垃圾', name: 'vehicle', inputValue: 'bus'}, 
+						{boxLabel: '有害垃圾', name: 'vehicle', inputValue: 'truck'},
+                        {boxLabel: '有害垃圾', name: 'vehicle', inputValue: 'truck'}]
+				}]
+
+            });
+
 
             var viewport = new Ext.Viewport({
                 layout: 'border',
                 items: [
+
                     {
                         region: 'west',
                         id: 'wizard',
@@ -58,10 +79,7 @@
                             border: false
                         },
 
-                        items: [ {
-                            id: 'card-0',
-                            html: ''
-                        }, {
+                        items: [question1, {
                             id: 'card-1',
                             html: ''
                         }, {
