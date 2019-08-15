@@ -18,18 +18,18 @@
 .icon {
     position: relative;
     left: -35px;
-    top: 13px;
+    top: 8px;
     cursor: pointer;
 }
 
 .x-tab-strip-active span.x-tab-strip-text {
-    font: normal 20px tahoma, arial, helvetica;
+    font: normal 18px tahoma, arial, helvetica;
     color: #000000;
     font-weight: bold;
 }
 
 .x-tab-strip span.x-tab-strip-text {
-    font-size: 20px;
+    font-size: 18px;
     color: #000000;
     white-space: nowrap;
     cursor: pointer;
