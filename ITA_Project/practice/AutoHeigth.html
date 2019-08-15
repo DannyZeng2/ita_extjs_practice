@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="../../resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="../../ext-all.js" type="text/javascript"></script>
+    <title>Document</title>
+    <script>
+        Ext.onReady(function () {
+            var panel = new Ext.form.FormPanel({
+                title: 'panel',    
+                autoHeight: true,
+                defaultType: 'textfield',
+                labelWidth: 50,
+                items: [{
+                    id: 'name',
+                    fieldLabel: 'name',
+                }, {
+                    id: 'age',
+                    fieldLabel: 'age',
+                }],
+                style: 'background-color: red',
+            });
+
+            var win = new Ext.Window({
+                title: 'window',
+                width: 400,
+                height: 300,
+                layout: 'fit',
+                items: [panel]
+            });
+
+            win.show();
+        }) 
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
