@@ -22,12 +22,12 @@
                 var next = Ext.getCmp('move-next');
                 var activeId = wizard.activeItem.id;
 
-                if (activeId == 'card-0') {
+                if (activeId == 'question1') {
                     if (direction == 1) {
                         wizard.setActiveItem(1);
                         prev.setDisabled(false);
                     }
-                } else if (activeId == 'card-1') {
+                } else if (activeId == 'question2') {
                     if (direction == -1) {
                         wizard.setActiveItem(0);
                         prev.setDisabled(true);
@@ -44,7 +44,7 @@
             };
 
             var question1 = new Ext.form.FormPanel({
-                id: 'testForm',
+                id: 'question1',
 				labelAlign: 'center',
 				labelWidth: 50,
 				frame: true,
@@ -53,10 +53,28 @@
 				xtype:'fieldset', 
 				title: 'Q1：番茄酱属于以下哪种垃圾？（单选题）',
 				defaultType: 'radio',
-				items: [{boxLabel: '湿垃圾', name: 'vehicle', inputValue: 'car', checked: true}, 
-						{boxLabel: '干垃圾', name: 'vehicle', inputValue: 'bus'}, 
-						{boxLabel: '有害垃圾', name: 'vehicle', inputValue: 'truck'},
-                        {boxLabel: '有害垃圾', name: 'vehicle', inputValue: 'truck'}]
+				items: [{boxLabel: '湿垃圾', name: 'garbage', inputValue: 'garbage1', checked: true}, 
+						{boxLabel: '干垃圾', name: 'garbage', inputValue: 'garbage2'}, 
+						{boxLabel: '有害垃圾', name: 'garbage', inputValue: 'garbage3'},
+                        {boxLabel: '可收垃圾', name: 'garbage', inputValue: 'garbage4'}]
+				}]
+
+            });
+
+            var question2 = new Ext.form.FormPanel({
+                id: 'question2',
+				labelAlign: 'center',
+				labelWidth: 10,
+				frame: true,
+				width: 350,
+				items: [{
+				xtype:'fieldset', 
+				title: 'Q2：王大叔出门遛狗后,哪些是正确的处理方法？（多选题）',
+				defaultType: 'checkbox',
+				items: [{boxLabel: '把粑粑用废纸包好带回家冲掉', name: 'vehicle', inputValue: 'car', checked: true}, 
+						{boxLabel: '受污染的报纸按有害垃圾处理', name: 'vehicle', inputValue: 'bus'}, 
+						{boxLabel: '没受污染的报纸可按可回收垃圾处理', name: 'vehicle', inputValue: 'truck'},
+                        {boxLabel: '受污染的报纸浸水后当湿垃圾处理', name: 'vehicle', inputValue: 'truck'}]
 				}]
 
             });
@@ -79,10 +97,7 @@
                             border: false
                         },
 
-                        items: [question1, {
-                            id: 'card-1',
-                            html: ''
-                        }, {
+                        items: [question1, question2, {
                                 id: 'card-2',
                                 html: ''
                             }],
