@@ -55,10 +55,22 @@
 
                     title: 'Q1：番茄酱属于以下哪种垃圾？（单选题）',
                     defaultType: 'radio',
-                    items: [{ boxLabel: '湿垃圾', name: 'garbage', inputValue: 'A', checked: true },
+                    items: [{ boxLabel: '湿垃圾', name: 'garbage', inputValue: 'A' ,checked:true},
                     { boxLabel: '干垃圾', name: 'garbage', inputValue: 'B' },
                     { boxLabel: '有害垃圾', name: 'garbage', inputValue: 'C' },
-                    { boxLabel: '可收垃圾', name: 'garbage', inputValue: 'D' }]
+                    { boxLabel: '可收垃圾', name: 'garbage', inputValue: 'D' }],
+                    listeners: {
+                        'change': function () {
+                            let radioItems = Ext.getCmp('q1').items.items;
+                            for (let item of radioItems) {
+                                if (item.checked === true) {
+                                    console.log(item.inputValue);
+                                    
+                                }
+                            }
+                        }
+                    }
+
                 }]
 
             });
@@ -75,10 +87,10 @@
                     xtype: 'fieldset',
                     title: 'Q2：王大叔出门遛狗后,哪些是正确的处理方法？（多选题）',
                     defaultType: 'checkbox',
-                    items: [{ boxLabel: '把粑粑用废纸包好带回家冲掉', name: 'A1', inputValue: 'A', checked: true },
-                    { boxLabel: '受污染的报纸按有害垃圾处理', name: 'A2', inputValue: 'B' },
-                    { boxLabel: '没受污染的报纸可按可回收垃圾处理', name: 'A3', inputValue: 'C' },
-                    { boxLabel: '受污染的报纸浸水后当湿垃圾处理', name: 'A4', inputValue: 'D' }]
+                    items: [{ boxLabel: '把粑粑用废纸包好带回家冲掉', name: 'A', inputValue: 'A', checked: true },
+                    { boxLabel: '受污染的报纸按有害垃圾处理', name: 'A', inputValue: 'B' },
+                    { boxLabel: '没受污染的报纸可按可回收垃圾处理', name: 'A', inputValue: 'C' },
+                    { boxLabel: '受污染的报纸浸水后当湿垃圾处理', name: 'A', inputValue: 'D' }]
                 }]
 
             });
@@ -105,7 +117,7 @@
 
             var container = new Ext.Container({
                 layout: 'border',
-                renderTo:'container',
+                renderTo: 'container',
                 style: 'margin:60px 0px 0px 550px;',
                 items: [
                     {
@@ -148,27 +160,18 @@
                 Ext.Msg.alert('提示', 'Congratulation!');
             });
 
-            // Ext.get('submit').on("click", function () {
-            //     let radioItems = Ext.getCmp('q1').items.items;
-            //     for (let item of radioItems) {
-            //         if (item.checked === true) {
-            //             console.log(item.inputValue);
-            //         }
-            //     }
+            Ext.get('submit').on("click", function () {
+                let radioItems = Ext.getCmp('q1').items.items;
+                for (let item of radioItems) {
+                    if (item.checked === true) {
+                        console.log(item.inputValue);
+                    }
+                }
 
 
-            // });
+            });
 
         });
-
-        // function updateResult() {
-        //     let radioItems = Ext.getCmp('q1').items.items;
-        //     for (let item of radioItems) {
-        //         if (item.checked === true) {
-        //             return item.inputValue;
-        //         }
-        //     }
-        // }
 
     </script>
 </head>
