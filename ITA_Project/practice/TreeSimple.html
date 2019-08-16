@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk">
+    <title>08.layout</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
+    <script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../ext-all-debug.js"></script>
+    <script type="text/javascript">
+        Ext.onReady(function () {
+            var root = new Ext.tree.TreeNode({ text: 'Welcome',checked: false
+				 });
+            var fruitRoot = new Ext.tree.TreeNode({ text: 'Fruit',checked: false
+				 });
+            var vagetableRoot = new Ext.tree.TreeNode({ text: 'Vagetable',checked: false
+				 });
+
+            var apple = new Ext.tree.TreeNode({ text: 'Apple' ,checked: false});
+            var grapes = new Ext.tree.TreeNode({ text: 'Grapes' ,checked: false});
+            var pear = new Ext.tree.TreeNode({ text: 'Pear' ,checked: false});
+            var strawberry = new Ext.tree.TreeNode({ text: 'Strawberry',checked: false });
+            var watermelon = new Ext.tree.TreeNode({ text: 'Watermelon' ,checked: false});
+
+            var tomato = new Ext.tree.TreeNode({ text: 'Tomato' ,checked: false});
+            
+            root.appendChild(fruitRoot);
+            root.appendChild(vagetableRoot);
+
+            fruitRoot.appendChild(apple);
+            fruitRoot.appendChild(grapes);
+            fruitRoot.appendChild(pear);
+            fruitRoot.appendChild(strawberry);
+            fruitRoot.appendChild(tomato);
+
+            vagetableRoot.appendChild(watermelon);
+            
+            var tree = new Ext.tree.TreePanel({
+                renderTo: 'tree',
+                title:'',
+                root:root,
+                rootVisible:false
+            });
+            tree.render();
+        });
+    </script>
+</head>
+
+<body>
+    <div id='tree'></div>
+</body>
+
+</html>
