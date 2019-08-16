@@ -25,6 +25,22 @@
             });
             tbar.render();
 
+            var bbar = new Ext.Toolbar({
+                renderTo: 'bbar',
+                width: 200,
+                items: [{ xtype: 'textfield', emptyText: 'add', id: 'add_input', width: 130 },
+                {
+                    id: 'add',
+                    xtype: 'button',
+                    width: 70,
+                    unstyle: true,
+                    text: '添加学生',
+                    style: 'margin:0px 150px 0px 0px;',
+                }],
+
+            });
+            bbar.render();
+
             var menu = new Ext.menu.Menu({
                 items: [{
                     id: 'showInfo',
@@ -36,9 +52,9 @@
                             case 'showInfo':
                                 var node = item.parentMenu.contextNode;
                                 if (node.parentNode) {
-                                    Ext.Msg.alert('当前位置', node.parentNode.text + node.text);
+                                    Ext.Msg.alert('学生信息', node.parentNode.text +'的'+ node.text);
                                 } else if (node) {
-                                    Ext.Msg.alert('当前位置', node.text);
+                                    Ext.Msg.alert('学生信息', node.text);
                                 }
                                 break;
                         }
@@ -130,7 +146,7 @@
 <body>
     <div id='tbar'></div>
     <div id='tree'></div>
-
+    <div id='bbar'></div>
 </body>
 
 </html>
