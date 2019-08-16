@@ -6,35 +6,11 @@
     <script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="../../ext-all-debug.js"></script>
     <script type="text/javascript">
+        
+        var root = new Ext.tree.AsyncTreeNode({ text: '计算机学院' });
         var selectedNode = '';
-        var root = new Ext.tree.TreeNode({
-            text: '计算机学院', checked: false
-        });
+
         Ext.onReady(function () {
-            var cs = new Ext.tree.TreeNode({
-                text: '计算机科学与技术', checked: false
-            });
-            var se = new Ext.tree.TreeNode({
-                text: '软件工程', checked: false
-            });
-
-            var danny = new Ext.tree.TreeNode({ text: 'Danny', checked: false, leaf: true });
-            var alan = new Ext.tree.TreeNode({ text: 'Alan', checked: false, leaf: true });
-            var sally = new Ext.tree.TreeNode({ text: 'Sally', checked: false, leaf: true });
-            var ban = new Ext.tree.TreeNode({ text: 'Ben', checked: false, leaf: true });
-            var mike = new Ext.tree.TreeNode({ text: 'Mike', checked: false, leaf: true });
-            var jack = new Ext.tree.TreeNode({ text: 'Jack', checked: false, leaf: true });
-
-            root.appendChild(cs);
-            root.appendChild(se);
-
-            cs.appendChild(danny);
-            cs.appendChild(alan);
-            cs.appendChild(jack);
-            se.appendChild(sally);
-            se.appendChild(ban);
-            se.appendChild(mike);
-
             var tbar = new Ext.Toolbar({
                 renderTo: 'tbar',
                 width: 200,
@@ -70,11 +46,11 @@
             var menu = new Ext.menu.Menu({
                 items: [{
                     id: 'showInfo',
-                    text: 'Show Information'
+                    text: '显示信息'
                 },
                 {
                     id: 'addInfo',
-                    text: 'Add'
+                    text: '添加'
                 }],
                 listeners: {
                     itemclick: function (item) {
@@ -107,7 +83,8 @@
                 animate: true,
                 enableDD: true,
                 root: root,
-                //loader: new Ext.tree.TreeLoader({ dataUrl: './data/tree.txt' }),
+                containerScroll: true,
+                loader: new Ext.tree.TreeLoader({ dataUrl: './data/tree.txt' }),
                 selModel: new Ext.tree.MultiSelectionModel({}),
                 contextMenu: menu,
                 listeners: {
@@ -131,9 +108,7 @@
             var treeEditor = new Ext.tree.TreeEditor(tree, { allowBlank: false }, {
                 listeners: {
                     complete: function (editor, currVal, origVal) {
-
                         Ext.Msg.alert('修改成功', origVal + '已修改为' + currVal);
-
                     },
 
                 }

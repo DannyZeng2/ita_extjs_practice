@@ -1,18 +1,13 @@
 [
 {text:'计算机科学与技术', checked: false,children: [
-  {text:'Danny', leaf: true},
-  {text:'Mike', leaf: true},
-  {text:'Gina', leaf: true}
+  {text:'Danny', leaf: true,checked: false},
+  {text:'Mike', leaf: true,checked: false},
+  {text:'Gina', leaf: true,checked: false}
   
 ]},
 {text:'软件工程', checked: false,children: [
   {text:'Marry', leaf: true,checked: false},
   {text:'Jack', leaf: true,checked: false},
   {text:'Willie', leaf: true,checked: false}
-]},
-{text:'网络工程', checked: false,children: [
-  {text:'Sally', leaf: true,checked: false},
-  {text:'Jerry', leaf: true,checked: false},
-  {text:'Ben', leaf: true,checked: false},
 ]}
 ]
