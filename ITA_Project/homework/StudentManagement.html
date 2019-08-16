@@ -6,8 +6,37 @@
     <script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="../../ext-all-debug.js"></script>
     <script type="text/javascript">
+
         Ext.onReady(function () {
-            var root = new Ext.tree.AsyncTreeNode({ text: '计算机学院' });
+
+            var root = new Ext.tree.TreeNode({
+                text: '计算机学院', checked: false
+            });
+            var cs = new Ext.tree.TreeNode({
+                text: '计算机科学与技术', checked: false
+            });
+            var se = new Ext.tree.TreeNode({
+                text: '软件工程', checked: false
+            });
+
+            var danny = new Ext.tree.TreeNode({ text: 'Danny', checked: false });
+            var alan = new Ext.tree.TreeNode({ text: 'Alan', checked: false });
+            var sally = new Ext.tree.TreeNode({ text: 'Sally', checked: false });
+            var ban = new Ext.tree.TreeNode({ text: 'Ben', checked: false });
+            var mike = new Ext.tree.TreeNode({ text: 'Mike', checked: false });
+            var jack = new Ext.tree.TreeNode({ text: 'Jack', checked: false });
+
+            root.appendChild(cs);
+            root.appendChild(se);
+
+            cs.appendChild(danny);
+            cs.appendChild(alan);
+            cs.appendChild(jack);
+            se.appendChild(sally);
+            se.appendChild(ban);
+            se.appendChild(mike);
+
+
 
             var tbar = new Ext.Toolbar({
                 renderTo: 'tbar',
@@ -45,6 +74,10 @@
                 items: [{
                     id: 'showInfo',
                     text: 'Show Information'
+                },
+                {
+                    id: 'addInfo',
+                    text: 'Add'
                 }],
                 listeners: {
                     itemclick: function (item) {
@@ -52,25 +85,31 @@
                             case 'showInfo':
                                 var node = item.parentMenu.contextNode;
                                 if (node.parentNode) {
-                                    Ext.Msg.alert('学生信息', node.parentNode.text +'的'+ node.text);
+                                    Ext.Msg.alert('学生信息', node.parentNode.text + '的' + node.text);
                                 } else if (node) {
                                     Ext.Msg.alert('学生信息', node.text);
+                                }
+                                break;
+                            case 'addInfo':
+                                var node = item.parentMenu.contextNode;
+                                if (node.parentNode) {
+                                    console.log(node.parentNode.attributes.children)
                                 }
                                 break;
                         }
                     }
                 }
             });
+            var selectedNode = '';
 
             var tree = new Ext.tree.TreePanel({
                 renderTo: 'tree',
-                title: "选择省份",
                 width: 200,
                 height: 300,
                 animate: true,
                 enableDD: true,
                 root: root,
-                loader: new Ext.tree.TreeLoader({ dataUrl: './data/tree.txt' }),
+                //loader: new Ext.tree.TreeLoader({ dataUrl: './data/tree.txt' }),
                 selModel: new Ext.tree.MultiSelectionModel({}),
                 contextMenu: menu,
                 listeners: {
@@ -83,6 +122,9 @@
                     nodedrop: function (e) {
                         Ext.Msg.alert('Drag Event', e.dropNode.text + '被移动到' + e.target.parentNode.text);
 
+                    },
+                    'click': function (node) {
+                        selectedNode = node;
                     }
                 }
 
@@ -137,6 +179,30 @@
                 tree.render();
 
             });
+
+            Ext.getCmp('add').on('click', function (e) {
+                var value = Ext.getCmp('add_input').getValue();
+                var obj = {};
+                obj.text = value;
+                obj.leaf = true;
+                obj.checked = false;
+                var student = new Ext.tree.TreeNode(obj);
+                console.log(selectedNode);
+                if (selectedNode.attributes.text === '计算机科学与技术') {
+                    cs.appendChild(student);
+                } else if (selectedNode.attributes.text === '软件工程') {
+                    se.appendChild(student);
+                } else if (selectedNode.attributes.text === "计算机学院") {
+                    obj.text = value;
+                    obj.leaf = false;
+                    obj.checked = false;
+                    var className = new Ext.tree.TreeNode(obj);
+                    root.appendChild(className);
+                }
+
+
+            });
+
         });
 
     </script>
