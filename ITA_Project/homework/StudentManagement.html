@@ -36,9 +36,9 @@
                             case 'showInfo':
                                 var node = item.parentMenu.contextNode;
                                 if (node.parentNode) {
-                                    Ext.Msg.alert('学生信息', node.parentNode.text +'的'+ node.text);
+                                    Ext.Msg.alert('当前位置', node.parentNode.text + node.text);
                                 } else if (node) {
-                                    Ext.Msg.alert('学生信息', node.text);
+                                    Ext.Msg.alert('当前位置', node.text);
                                 }
                                 break;
                         }
@@ -65,7 +65,7 @@
                         treeContextMenu.showAt(e.getXY());
                     },
                     nodedrop: function (e) {
-                        Ext.Msg.alert('Drag Event', e.dropNode.text + '被转到' + e.target.parentNode.text );
+                        Ext.Msg.alert('Drag Event', e.dropNode.text + '被移动到' + e.target.parentNode.text);
 
                     }
                 }
@@ -83,7 +83,44 @@
                 }
             });
 
+            var filter = new Ext.tree.TreeFilter(tree, {
+                clearBlank: true,
+                autoClear: true
+            });
 
+
+            var hiddenPkgs = [];
+
+            Ext.getCmp('filter').on('click', function (e) {
+                var text = Ext.getCmp('filter_input').getValue();
+
+                Ext.each(hiddenPkgs, function (node) {
+                    node.ui.show();
+                    console.log(node.ui)
+                });
+
+                if (!text) {
+                    filter.clear();
+                    return;
+                }
+                tree.expandAll();
+
+                var reg = new RegExp(Ext.escapeRe(text), 'i');
+                filter.filterBy(function (node) {
+                    return !node.isLeaf() || reg.test(node.text);
+                });
+
+                hiddenPkgs = [];
+                tree.root.cascade(function (node) {
+                    if (!node.isLeaf() && node.ui.ctNode.offsetHeight < 3) {
+                        node.ui.hide();
+                        hiddenPkgs.push(node);
+                    }
+                });
+
+                tree.render();
+
+            });
         });
 
     </script>
