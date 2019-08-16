@@ -9,6 +9,22 @@
         Ext.onReady(function () {
             var root = new Ext.tree.AsyncTreeNode({ text: '计算机学院' });
 
+            var tbar = new Ext.Toolbar({
+                renderTo: 'tbar',
+                width: 200,
+                items: [{ xtype: 'textfield', emptyText: 'filter', id: 'filter_input', width: 150 },
+                {
+                    id: 'filter',
+                    xtype: 'button',
+                    width: 50,
+                    unstyle: true,
+                    text: '过滤',
+                    style: 'margin:0px 150px 0px 0px;',
+                }],
+
+            });
+            tbar.render();
+
             var menu = new Ext.menu.Menu({
                 items: [{
                     id: 'showInfo',
@@ -63,6 +79,7 @@
                         Ext.Msg.alert('修改成功', origVal + '已修改为' + currVal);
 
                     },
+
                 }
             });
 
@@ -74,7 +91,7 @@
 </head>
 
 <body>
- 
+    <div id='tbar'></div>
     <div id='tree'></div>
 
 </body>
