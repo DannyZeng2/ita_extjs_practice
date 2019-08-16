@@ -8,7 +8,6 @@
     <script type="text/javascript">
         Ext.onReady(function () {
             var root = new Ext.tree.AsyncTreeNode({ text: '计算机学院' });
-           
 
             var menu = new Ext.menu.Menu({
                 items: [{
@@ -48,12 +47,24 @@
                         var treeContextMenu = node.getOwnerTree().contextMenu;
                         treeContextMenu.contextNode = node;
                         treeContextMenu.showAt(e.getXY());
+                    },
+                    nodedrop: function (e) {
+                        Ext.Msg.alert('Drag Event', e.dropNode.text + '被转到' + e.target.parentNode.text );
+
                     }
                 }
 
             });
 
- 
+            var treeEditor = new Ext.tree.TreeEditor(tree, { allowBlank: false }, {
+                listeners: {
+                    complete: function (editor, currVal, origVal) {
+
+                        Ext.Msg.alert('修改成功', origVal + '已修改为' + currVal);
+
+                    },
+                }
+            });
 
 
         });
