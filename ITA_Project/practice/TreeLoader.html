@@ -8,8 +8,22 @@
     <script type="text/javascript">
         Ext.onReady(function () {
             var root = new Ext.tree.AsyncTreeNode({ text: '广东省' });
-            var root2 = new Ext.tree.AsyncTreeNode({ text: '广东省' });
 
+            var tbar = new Ext.Toolbar({
+                renderTo: 'tbar',
+                width: 200,
+                items: [{ xtype: 'textfield', emptyText: 'filter', id: 'filter_input', width: 150 },
+                {
+                    id: 'filter',
+                    xtype: 'button',
+                    width: 50,
+                    unstyle: true,
+                    text: '过滤',
+                    style: 'margin:0px 150px 0px 0px;',
+                }],
+
+            });
+            tbar.render();
 
             var menu = new Ext.menu.Menu({
                 items: [{
@@ -39,34 +53,6 @@
                 height: 300,
                 animate: true,
                 enableDD: true,
-                root: root2,
-                loader: new Ext.tree.TreeLoader({ dataUrl: 'tree.txt' }),
-                selModel: new Ext.tree.MultiSelectionModel({}),
-                contextMenu: menu,
-                listeners: {
-                    contextmenu: function (node, e) {
-                        // node.select();
-                        var treeContextMenu = node.getOwnerTree().contextMenu;
-                        treeContextMenu.contextNode = node;
-                        treeContextMenu.showAt(e.getXY());
-                    },
-                    collapsenode: function (node) {
-                        Ext.Msg.alert('Tree Event', node.text + "已收缩");
-                    },
-                    nodedrop: function (e) {
-                        Ext.Msg.alert('Drag Event',e.dropNode.text + '被移动到' + e.target.parentNode.text + ', 拖拽方向：' + e.point);
-
-                    }
-                }
-
-            });
-
-            var tree2 = new Ext.tree.TreePanel({
-                renderTo: 'tree2',
-                width: 200,
-                height: 300,
-                animate: true,
-                enableDD: true,
                 root: root,
                 loader: new Ext.tree.TreeLoader({ dataUrl: 'tree.txt' }),
                 selModel: new Ext.tree.MultiSelectionModel({}),
@@ -82,23 +68,19 @@
                         Ext.Msg.alert('Tree Event', node.text + "已收缩");
                     },
                     nodedrop: function (e) {
-                        Ext.Msg.alert('Drag Event',e.dropNode.text + '被移动到' + e.target.parentNode.text + ', 拖拽方向：' + e.point);
+                        Ext.Msg.alert('Drag Event', e.dropNode.text + '被移动到' + e.target.parentNode.text + ', 拖拽方向：' + e.point);
 
                     }
                 }
 
             });
 
-            // tree.on('expandnode', function (node) {
-            //     Ext.Msg.alert('Tree Event', node.text + "已展开");
-            // });
-
             var treeEditor = new Ext.tree.TreeEditor(tree, { allowBlank: false }, {
                 listeners: {
                     complete: function (editor, currVal, origVal) {
                         if (currVal.indexOf('Zh') != -1) {
-                            editor.editNode.setCls('chang_red');
-                            //editor.boundEl.dom.style.color = 'red';
+                            //editor.editNode.setCls('chang_red');
+                            editor.boundEl.dom.style.color = 'red';
                         }
                         Ext.Msg.alert('修改成功', origVal + '已修改为' + currVal);
 
@@ -107,21 +89,54 @@
                 }
             });
 
-            tree.render();
-            tree2.render();
+            var filter = new Ext.tree.TreeFilter(tree, {
+                clearBlank: true,
+                autoClear: true
+            });
 
+
+            var hiddenPkgs = [];
+
+            Ext.getCmp('filter').on('click', function (e) {
+                var text = Ext.getCmp('filter_input').getValue();
+
+                Ext.each(hiddenPkgs, function (node) {
+                    node.ui.show();
+                    console.log(node.ui)
+                });
+
+                if (!text) {
+                    filter.clear();
+                    return;
+                }
+                tree.expandAll();
+
+                var reg = new RegExp(Ext.escapeRe(text), 'i');
+                filter.filterBy(function (node) {
+                    return !node.isLeaf() || reg.test(node.text);
+                });
+
+                hiddenPkgs = [];
+                tree.root.cascade(function (node) {
+                    if (!node.isLeaf() && node.ui.ctNode.offsetHeight < 3) {
+                        node.ui.hide();
+                        hiddenPkgs.push(node);
+                    }
+                });
+
+                tree.render();
+
+            });
         });
+
     </script>
-    <style>
-        .chang_red span {
-            color: red;
-        }
-    </style>
+
 </head>
 
 <body>
+    <div id='tbar'></div>
     <div id='tree'></div>
-    <div id='tree2'></div>
+
 </body>
 
 </html>
