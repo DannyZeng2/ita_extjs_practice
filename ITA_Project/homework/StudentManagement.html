@@ -19,12 +19,12 @@
                 text: '软件工程', checked: false
             });
 
-            var danny = new Ext.tree.TreeNode({ text: 'Danny', checked: false });
-            var alan = new Ext.tree.TreeNode({ text: 'Alan', checked: false });
-            var sally = new Ext.tree.TreeNode({ text: 'Sally', checked: false });
-            var ban = new Ext.tree.TreeNode({ text: 'Ben', checked: false });
-            var mike = new Ext.tree.TreeNode({ text: 'Mike', checked: false });
-            var jack = new Ext.tree.TreeNode({ text: 'Jack', checked: false });
+            var danny = new Ext.tree.TreeNode({ text: 'Danny', checked: false,leaf:true });
+            var alan = new Ext.tree.TreeNode({ text: 'Alan', checked: false ,leaf:true});
+            var sally = new Ext.tree.TreeNode({ text: 'Sally', checked: false ,leaf:true});
+            var ban = new Ext.tree.TreeNode({ text: 'Ben', checked: false ,leaf:true});
+            var mike = new Ext.tree.TreeNode({ text: 'Mike', checked: false ,leaf:true});
+            var jack = new Ext.tree.TreeNode({ text: 'Jack', checked: false ,leaf:true});
 
             root.appendChild(cs);
             root.appendChild(se);
@@ -188,16 +188,16 @@
                 obj.checked = false;
                 var student = new Ext.tree.TreeNode(obj);
                 console.log(selectedNode);
-                if (selectedNode.attributes.text === '计算机科学与技术') {
-                    cs.appendChild(student);
-                } else if (selectedNode.attributes.text === '软件工程') {
-                    se.appendChild(student);
-                } else if (selectedNode.attributes.text === "计算机学院") {
+                if (selectedNode.attributes.text === "计算机学院") {
                     obj.text = value;
                     obj.leaf = false;
                     obj.checked = false;
                     var className = new Ext.tree.TreeNode(obj);
                     root.appendChild(className);
+                } else if(selectedNode.attributes.leaf === true) {
+                    selectedNode.parentNode.appendChild(student);
+                }else{
+                    selectedNode.appendChild(student);
                 }
 
 
