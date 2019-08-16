@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
+    <script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../ext-all-debug.js"></script>
+    <script type="text/javascript">
+        Ext.onReady(function () {
+            var root = new Ext.tree.AsyncTreeNode({ text: '计算机学院' });
+
+            var tree = new Ext.tree.TreePanel({
+                renderTo: 'tree',
+                title: "选择省份",
+                width: 200,
+                height: 300,
+                animate: true,
+                enableDD: true,
+                root: root,
+                loader: new Ext.tree.TreeLoader({ dataUrl: './data/tree.txt' }),
+                selModel: new Ext.tree.MultiSelectionModel({}),
+                contextMenu: menu,
+                listeners: {}
+            });
+
+ 
+
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+ 
+    <div id='tree'></div>
+
+</body>
+
+</html>
