@@ -8,8 +8,8 @@
     <script type="text/javascript">
         var selectedNode = '';
         var root = new Ext.tree.TreeNode({
-                text: '计算机学院', checked: false
-            });
+            text: '计算机学院', checked: false
+        });
         Ext.onReady(function () {
             var cs = new Ext.tree.TreeNode({
                 text: '计算机科学与技术', checked: false
@@ -177,13 +177,17 @@
 
             });
 
-            Ext.getCmp('add').on('click', function(){
+            Ext.getCmp('add').on('click', function () {
                 addItem(Ext.getCmp('add_input').getValue());
             });
 
         });
 
         function addItem(value) {
+            if (!value.trim()) {
+                showError('输入不能为空！')
+                return;
+            }
             root = this.root;
             var obj = {};
             obj.text = value;
@@ -202,6 +206,15 @@
             } else {
                 selectedNode.appendChild(student);
             }
+        }
+
+        function showError(msg) {
+            Ext.Msg.show({
+                buttons: Ext.Msg.OK,
+                icon: Ext.Msg.ERROR,
+                title: 'Error',
+                msg: msg
+            });
         }
 
     </script>
