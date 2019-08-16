@@ -1,0 +1,107 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk">
+    <title>08.layout</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
+    <script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../ext-all-debug.js"></script>
+    <script type="text/javascript" src="localXHR.js"></script>
+    <script type="text/javascript">
+        Ext.onReady(function () {
+
+            var viewport = new Ext.Viewport({
+                layout: 'fit',
+
+                items: [{
+                    xtype: 'panel',
+                    title: 'Hbox',
+                    layout: 'hbox',
+                    defaults: {
+                        height: 200,
+                    },
+                    items: [
+                        {
+                            xtype: 'panel',
+                            title: 'panel1',
+                            html: '11111',
+                            flex: 1
+                        },
+                        {
+                            xtype: 'panel',
+                            title: 'panel1',
+                            html: '22222',
+                            flex: 2
+                        },
+                        {
+                            xtype: 'panel',
+                            title: 'panel1',
+                            html: '33333',
+                            flex: 3
+                        },
+                        {
+                            xtype: 'panel',
+                            title: 'Vbox',
+                            layout: 'vbox',
+                            flex: 3,
+                            defaults: {
+                                width: 100,
+                            },
+
+                            layoutConfig: {
+                                align: 'stretch'
+                            },
+                            items: [
+                                {
+                                    xtype: 'panel',
+                                    title: 'panel4',
+                                    html: '44444',
+                                    flex: 1,
+
+                                },
+                                {
+                                    xtype: 'panel',
+                                    title: 'panel5',
+                                    html: '55555',
+                                    flex: 2
+                                }
+                            ]
+                        }
+                    ],
+
+                }
+                ],
+
+                // items: [{
+                //     xtype: 'panel',
+                //     title: 'Vbox',
+                //     layout: 'vbox',
+
+                //     items: [
+                //         {
+                //             xtype: 'panel',
+                //             title: 'panel4',
+                //             html: '44444',
+                //             flex: 1
+                //         },
+                //         {
+                //             xtype: 'panel',
+                //             title: 'panel5',
+                //             html: '55555',
+                //             flex: 1
+                //         }
+                //     ]
+                // }
+                // ],
+
+            })
+
+        });
+    </script>
+</head>
+<div id='table'></div>
+
+<body>
+</body>
+
+</html>
