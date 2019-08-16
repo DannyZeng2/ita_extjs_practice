@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk">
+    <title>08.layout</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
+    <script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../ext-all-debug.js"></script>
+    <script type="text/javascript" src="localXHR.js"></script>
+    <script type="text/javascript">
+        Ext.onReady(function () {
+            var panel = new Ext.Panel({
+
+                title: 'TableLayout',
+                renderTo: 'table',
+                width:800,
+                layout: 'table',
+                defaults: {
+                    bodyStyle: 'padding:20px'
+                },
+                layoutConfig: {
+                    columns: 3
+                },
+                layout: 'column',
+                items: [{
+                    title: 'Column 1',
+                    columnWidth: .5,
+                    html: '<p>Cell A</p>',
+                
+                }, {
+                    title: 'Column 3',
+                    columnWidth: .2,
+                    html: '<p>Cell B</p>',
+        
+                }, {
+                    title: 'Column 3',
+                    columnWidth: .3,
+                    html: '<p>Cell C</p>'
+                }]
+
+            });
+            panel.render()
+
+        });
+    </script>
+</head>
+<div id='table'></div>
+
+<body>
+</body>
+
+</html>
