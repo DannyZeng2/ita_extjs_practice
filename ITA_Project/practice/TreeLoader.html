@@ -8,6 +8,8 @@
     <script type="text/javascript">
         Ext.onReady(function () {
             var root = new Ext.tree.AsyncTreeNode({ text: '广东省' });
+            var root2 = new Ext.tree.AsyncTreeNode({ text: '广东省' });
+
 
             var menu = new Ext.menu.Menu({
                 items: [{
@@ -37,6 +39,34 @@
                 height: 300,
                 animate: true,
                 enableDD: true,
+                root: root2,
+                loader: new Ext.tree.TreeLoader({ dataUrl: 'tree.txt' }),
+                selModel: new Ext.tree.MultiSelectionModel({}),
+                contextMenu: menu,
+                listeners: {
+                    contextmenu: function (node, e) {
+                        // node.select();
+                        var treeContextMenu = node.getOwnerTree().contextMenu;
+                        treeContextMenu.contextNode = node;
+                        treeContextMenu.showAt(e.getXY());
+                    },
+                    collapsenode: function (node) {
+                        Ext.Msg.alert('Tree Event', node.text + "已收缩");
+                    },
+                    nodedrop: function (e) {
+                        Ext.Msg.alert('Drag Event',e.dropNode.text + '被移动到' + e.target.parentNode.text + ', 拖拽方向：' + e.point);
+
+                    }
+                }
+
+            });
+
+            var tree2 = new Ext.tree.TreePanel({
+                renderTo: 'tree2',
+                width: 200,
+                height: 300,
+                animate: true,
+                enableDD: true,
                 root: root,
                 loader: new Ext.tree.TreeLoader({ dataUrl: 'tree.txt' }),
                 selModel: new Ext.tree.MultiSelectionModel({}),
@@ -50,9 +80,12 @@
                     },
                     collapsenode: function (node) {
                         Ext.Msg.alert('Tree Event', node.text + "已收缩");
+                    },
+                    nodedrop: function (e) {
+                        Ext.Msg.alert('Drag Event',e.dropNode.text + '被移动到' + e.target.parentNode.text + ', 拖拽方向：' + e.point);
+
                     }
                 }
-
 
             });
 
@@ -75,6 +108,7 @@
             });
 
             tree.render();
+            tree2.render();
 
         });
     </script>
@@ -87,6 +121,7 @@
 
 <body>
     <div id='tree'></div>
+    <div id='tree2'></div>
 </body>
 
 </html>
