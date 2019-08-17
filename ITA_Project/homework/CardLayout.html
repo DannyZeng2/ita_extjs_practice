@@ -12,7 +12,7 @@
         }
     </style>
     <script type="text/javascript">
-    
+
         Ext.onReady(function () {
             var question1 = new Ext.form.FormPanel({
                 id: 'question1',
@@ -60,19 +60,20 @@
                 xtype: 'form',
                 unstyled: true,
                 frame: true,
+                labelWidth: 120,
                 defaults: {
-                    width: 400
+                    width: 500
                 },
                 defaultType: 'textfield',
                 items: [{
                     id: 'result1',
-                    fieldLabel: 'question 1 result',
+                    fieldLabel: '第一题所选答案',
                     name: 'result1',
                     anchor: '80%',
                 }, {
                     id: 'result2',
-                    fieldLabel: 'question 1 result',
-                    name: 'result1',
+                    fieldLabel: '第二题所选答案',
+                    name: 'result2',
                     anchor: '80%',
                 }],
                 buttons: [{
@@ -124,6 +125,11 @@
             });
 
             Ext.get('submit').on("click", function () {
+                console.log(Ext.getCmp('result1').getValue())
+                if(!Ext.getCmp('result1').getValue() || !Ext.getCmp('result2').getValue()){
+                    showError('您还有题目没有完成');
+                    return;
+                }
                 Ext.Msg.alert('提示', 'Congratulation!');
             });
         });
@@ -158,19 +164,32 @@
 
         function setResultForQ1(self, newValue) {
             if (newValue) {
+                console.log(self)
                 Ext.getCmp('result1').setValue(self.inputValue)
             }
+
         }
 
         function setResultForQ2() {
             var items = Ext.getCmp('q2').items
             var values = ''
-            for (var i = 1; i < items.length; i++) {
+            for (var i = 0; i < items.length; i++) {
                 if (items.get(i).checked) {
                     values += items.get(i).inputValue + ' '
                 }
             }
             Ext.getCmp('result2').setValue(values)
+        }
+
+
+
+        function showError(msg) {
+            Ext.Msg.show({
+                buttons: Ext.Msg.OK,
+                icon: Ext.Msg.ERROR,
+                title: '警告',
+                msg: msg
+            });
         }
 
     </script>
