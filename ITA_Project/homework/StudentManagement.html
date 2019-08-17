@@ -38,6 +38,9 @@
                     unstyle: true,
                     text: '添加学生',
                     style: 'margin:0px 150px 0px 0px;',
+                    handler: function() {
+                        addItem(Ext.getCmp('add_input').getValue());
+                    }
                 }],
 
             });
@@ -151,11 +154,6 @@
                 tree.render();
 
             });
-
-            Ext.getCmp('add').on('click', function () {
-                addItem(Ext.getCmp('add_input').getValue());
-            });
-
         });
 
         function addItem(value) {
@@ -163,7 +161,7 @@
                 showError('输入不能为空！')
                 return;
             }
-            root = this.root;
+            //root = this.root;
             var obj = {};
             obj.text = value;
             obj.leaf = true;
