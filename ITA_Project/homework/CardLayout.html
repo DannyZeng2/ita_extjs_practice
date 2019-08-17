@@ -12,36 +12,8 @@
         }
     </style>
     <script type="text/javascript">
+    
         Ext.onReady(function () {
-
-            var navHandler = function (direction) {
-
-                var wizard = Ext.getCmp('wizard').layout;
-                var prev = Ext.getCmp('move-prev');
-                var next = Ext.getCmp('move-next');
-                var activeId = wizard.activeItem.id;
-
-                if (activeId == 'question1') {
-                    if (direction == 1) {
-                        wizard.setActiveItem(1);
-                        prev.setDisabled(false);
-                    }
-                } else if (activeId == 'question2') {
-                    if (direction == -1) {
-                        wizard.setActiveItem(0);
-                        prev.setDisabled(true);
-                    } else {
-                        wizard.setActiveItem(2);
-                        next.setDisabled(true);
-                    }
-                } else if (activeId == 'result') {
-                    if (direction == -1) {
-                        wizard.setActiveItem(1);
-                        next.setDisabled(false);
-                    }
-                }
-            };
-
             var question1 = new Ext.form.FormPanel({
                 id: 'question1',
                 labelAlign: 'center',
@@ -55,10 +27,10 @@
 
                     title: 'Q1：番茄酱属于以下哪种垃圾？（单选题）',
                     defaultType: 'radio',
-                    items: [{ boxLabel: '湿垃圾', name: 'garbage', inputValue: 'A', checked: true },
-                    { boxLabel: '干垃圾', name: 'garbage', inputValue: 'B' },
-                    { boxLabel: '有害垃圾', name: 'garbage', inputValue: 'C' },
-                    { boxLabel: '可收垃圾', name: 'garbage', inputValue: 'D' }]
+                    items: [{ boxLabel: '湿垃圾', name: 'garbage', inputValue: 'A', listeners: { 'check': setResultForQ1 } },
+                    { boxLabel: '干垃圾', name: 'garbage', inputValue: 'B', listeners: { 'check': setResultForQ1 } },
+                    { boxLabel: '有害垃圾', name: 'garbage', inputValue: 'C', listeners: { 'check': setResultForQ1 } },
+                    { boxLabel: '可收垃圾', name: 'garbage', inputValue: 'D', listeners: { 'check': setResultForQ1 } }]
                 }]
 
             });
@@ -154,28 +126,52 @@
             Ext.get('submit').on("click", function () {
                 Ext.Msg.alert('提示', 'Congratulation!');
             });
-
-            // Ext.get('submit').on("click", function () {
-            //     let radioItems = Ext.getCmp('q1').items.items;
-            //     for (let item of radioItems) {
-            //         if (item.checked === true) {
-            //             console.log(item.inputValue);
-            //         }
-            //     }
-
-
-            // });
-
         });
 
-        // function updateResult() {
-        //     let radioItems = Ext.getCmp('q1').items.items;
-        //     for (let item of radioItems) {
-        //         if (item.checked === true) {
-        //             return item.inputValue;
-        //         }
-        //     }
-        // }
+        function navHandler(direction) {
+            var wizard = Ext.getCmp('wizard').layout;
+            var prev = Ext.getCmp('move-prev');
+            var next = Ext.getCmp('move-next');
+            var activeId = wizard.activeItem.id;
+
+            if (activeId == 'question1') {
+                if (direction == 1) {
+                    wizard.setActiveItem(1);
+                    prev.setDisabled(false);
+                }
+            } else if (activeId == 'question2') {
+                setResultForQ2();
+                if (direction == -1) {
+                    wizard.setActiveItem(0);
+                    prev.setDisabled(true);
+                } else {
+                    wizard.setActiveItem(2);
+                    next.setDisabled(true);
+                }
+            } else if (activeId == 'result') {
+                if (direction == -1) {
+                    wizard.setActiveItem(1);
+                    next.setDisabled(false);
+                }
+            }
+        };
+
+        function setResultForQ1(self, newValue) {
+            if (newValue) {
+                Ext.getCmp('result1').setValue(self.inputValue)
+            }
+        }
+
+        function setResultForQ2() {
+            var items = Ext.getCmp('q2').items
+            var values = ''
+            for (var i = 1; i < items.length; i++) {
+                if (items.get(i).checked) {
+                    values += items.get(i).inputValue + ' '
+                }
+            }
+            Ext.getCmp('result2').setValue(values)
+        }
 
     </script>
 </head>
