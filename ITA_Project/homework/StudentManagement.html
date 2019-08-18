@@ -57,6 +57,9 @@
                 }, {
                     id: 'delete',
                     text: '刪除'
+                }, {
+                    id: 'edit',
+                    text: '修改'
                 }],
                 listeners: {
                     itemclick: function (item) {
@@ -84,6 +87,10 @@
                                     currentNode.remove();
                                 }
                                 break;
+                            case 'edit':
+                                var currentNode = item.parentMenu.contextNode;
+                                treeEditor.editNode = currentNode;
+                                treeEditor.startEdit(currentNode.ui.textNode);
                         }
                     }
                 }
@@ -118,14 +125,14 @@
 
             });
 
-            var treeEditor = new Ext.tree.TreeEditor(tree, { allowBlank: false}, {
-               // shadow:'frame',
+            var treeEditor = new Ext.tree.TreeEditor(tree, { allowBlank: false }, {
+                // shadow:'frame',
                 listeners: {
                     complete: function (editor, currVal, origVal) {
-                        if(currVal !== origVal){
+                        if (currVal !== origVal) {
                             Ext.Msg.alert('修改成功', origVal + '已修改为' + currVal);
                         }
-                        
+
                     },
 
                 }
