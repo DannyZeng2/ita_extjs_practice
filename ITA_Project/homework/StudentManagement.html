@@ -118,10 +118,14 @@
 
             });
 
-            var treeEditor = new Ext.tree.TreeEditor(tree, { allowBlank: false }, {
+            var treeEditor = new Ext.tree.TreeEditor(tree, { allowBlank: false}, {
+               // shadow:'frame',
                 listeners: {
                     complete: function (editor, currVal, origVal) {
-                        Ext.Msg.alert('修改成功', origVal + '已修改为' + currVal);
+                        if(currVal !== origVal){
+                            Ext.Msg.alert('修改成功', origVal + '已修改为' + currVal);
+                        }
+                        
                     },
 
                 }
