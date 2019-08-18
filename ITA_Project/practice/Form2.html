@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="../../resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="../../ext-all.js" type="text/javascript"></script>
+    <title>Document</title>
+    <script>
+
+        Ext.override(Ext.form.TextField, {
+            unitText: '',
+            onRender: function (ct, position) {
+                Ext.form.TextField.superclass.onRender.call(this, ct, position);
+                
+                if (this.unitText != '') {
+                    var unitEl = ct.createChild({
+                        tag: 'div',
+                        html: this.unitText
+                    });
+                    unitEl.addClass('x-form-unit');
+                        
+                        this.alignErrorIcon = function () {
+                            this.errorIcon.alignTo(unitEl, 'tl-tr', [2, 0]);
+                        };
+                }
+            }
+        });
+        Ext.onReady(function () {
+            
+            Ext.QuickTips.init();
+            Ext.form.Field.prototype.msgTarget = 'side';
+
+            
+            var btnsubmitclick = function () {
+                Ext.MessageBox.alert('提示', '你点了确定按钮!');
+            }
+            
+            var btnresetclick = function () {
+                Ext.MessageBox.alert('提示', '你点了重置按钮!');
+            }
+           
+            var btnresetmouseover = function () {
+                Ext.MessageBox.alert('提示', '你鼠标悬停在重置按钮之上!');
+            }
+           
+            var btnsubmit = new Ext.Button({
+                text: '提交',
+                handler: btnsubmitclick
+            });
+            
+            var btnreset = new Ext.Button({
+                text: '重置',
+                listeners: {
+                    'mouseover': btnresetmouseover,
+                    'click': btnresetclick
+                }
+            });
+            
+            var txtusername = new Ext.form.TextField({
+                width: 140,
+                allowBlank: false,
+                maxLength: 20,
+                name: 'username',
+                fieldLabel: '用户名称',
+                blankText: '请输入用户名',
+                maxLengthText: '用户名不能超过20个字符'
+            });
+            
+            var txtpassword = new Ext.form.TextField({
+                width: 140,
+                allowBlank: false,
+                maxLength: 20,
+                inputType: 'password',
+                name: 'password',
+                fieldLabel: '密码',
+                blankText: '请输入密码',
+                maxLengthText: '密码不能超过20个字符'
+            });
+           
+            var numberfield = new Ext.form.NumberField({
+                fieldLabel: '身高',
+                width: 80,
+                decimalPrecision: 1,
+                minValue: 0.01,
+                maxValue: 200,
+                unitText: ' cm',
+                allowBlank: false,
+                blankText: '请输入身高'
+            });
+           
+            var hiddenfield = new Ext.form.Hidden({
+                name: 'userid',
+                value: '1'
+            });
+            
+            var datefield = new Ext.form.DateField({
+                fieldLabel: '出生日期',
+                format: 'Y-m-d',
+                editable: false,
+                allowBlank: false,
+                blankText: '请选择日期'
+            });
+
+            var form = new Ext.form.FormPanel({
+                width:500,
+                frame: true,
+                title: '表单标题',
+                style: 'margin:10px',
+                items: [txtusername, txtpassword, numberfield, hiddenfield, datefield],
+                buttons: [btnsubmit, btnreset]
+            });
+            
+            var viewport = new Ext.Viewport({
+                items: form
+            });
+            
+
+        }) 
+    </script>
+    <style>
+        .x-form-unit {
+            height: 22px;
+            line-height: 22px;
+            padding-left: 2px;
+            display: inline-block;
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+    <div id=''></div>
+</body>
+
+</html>

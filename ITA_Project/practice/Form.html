@@ -10,6 +10,9 @@
     <script>
         Ext.onReady(function () {
 
+            //Ext.QuickTips.init();
+            Ext.form.Field.prototype.msgTarget = 'under';
+
             var myForm = new Ext.form.FormPanel({
                 id: 'myForm',
                 defaultType: 'textfield',
@@ -26,9 +29,17 @@
                 items: [{
                     id: 'name',
                     fieldLabel: 'name',
+                    allowBlank: false,
+                    blankText: '请输入用户名'
                 }, {
                     id: 'age',
                     fieldLabel: 'age',
+                    allowBlank: false,
+                    blankText: '请输入年龄',
+                    maxLength: 3,
+                    maxLengthText: '年龄不能超过3位'
+
+                    
                 }],
                 buttons: [{
                     id: 'reset',
@@ -36,6 +47,7 @@
                 }, {
                     id: 'submit',
                     text: 'submit',
+                    
                 }],
 
             });
@@ -52,6 +64,9 @@
 
         }) 
     </script>
+    <style>
+        
+    </style>
 </head>
 
 <body>
