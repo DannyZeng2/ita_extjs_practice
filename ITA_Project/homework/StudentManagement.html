@@ -178,28 +178,32 @@
         });
 
         function addItem(value) {
+            var student = createNode(value,true);
+            var className = createNode(value,false);
+
             if (!value.trim()) {
                 showError('输入不能为空！')
                 return;
             }
-            //root = this.root;
-            var obj = {};
-            obj.text = value;
-            obj.leaf = true;
-            obj.checked = false;
-            var student = new Ext.tree.TreeNode(obj);
-            //console.log(selectedNode);
+
             if (selectedNode.attributes.text === "计算机学院") {
-                obj.text = value;
-                obj.leaf = false;
-                obj.checked = false;
-                var className = new Ext.tree.TreeNode(obj);
                 root.appendChild(className);
+
             } else if (selectedNode.attributes.leaf === true) {
                 selectedNode.parentNode.appendChild(student);
+
             } else {
                 selectedNode.appendChild(student);
+
             }
+        }
+
+        function createNode(value,isLeaf) {
+            var obj = {};
+            obj.text = value;
+            obj.leaf = isLeaf;
+            obj.checked = false;
+            return new Ext.tree.TreeNode(obj);
         }
 
         function showError(msg) {
