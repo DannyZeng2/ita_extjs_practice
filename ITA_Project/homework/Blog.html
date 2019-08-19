@@ -19,7 +19,7 @@
             });
 
             var panel = new Ext.Toolbar({
-                renderTo: document.body,
+                renderTo: 'tbar',
                 items: [
                     //'->',
                     { text: 'Blog' },
@@ -30,6 +30,18 @@
 
                 ]
             });
+            
+            var textArea = new Ext.form.TextArea({
+                id: 'textArea',
+                renderTo: 'blog',
+                width: 400,
+                height:400,
+                style:'margin:100px 0px 0px 500px',
+                
+            });
+            textArea.render();
+
+
 
         }) 
     </script>
@@ -38,7 +50,8 @@
 </head>
 
 <body>
-    <div id=''></div>
+    <div id='tbar'></div>
+    <div id='blog'></div>
 </body>
 
 </html>
