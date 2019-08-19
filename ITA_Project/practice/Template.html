@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="../../resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="../../ext-all.js" type="text/javascript"></script>
+    <title>Document</title>
+    <script>
+        Ext.onReady(function () {
+
+            var panel = new Ext.Panel({
+                renderTo: 'panel',
+                title: 'Demo',
+                width: 300,
+                height: 300,
+                collapsible: true,
+                html: "<div id='template'></div>"
+
+
+            });
+            panel.render();
+
+            var template = Ext.DomHelper.createTemplate({
+                tag: 'tr', children: [
+                    { tag: 'td', html: 'I am {name}, {age} years old.' },
+                    { tag: 'td', html: '<div id="div1"></div>' },
+                    { tag: 'td', html: '<div id="div2"></div>' }
+                ]
+            });
+            template.append('template', { name: 'aaa', age: 22 });
+
+            Ext.DomHelper.append('div1', { tag: 'div', cls: 'bbb' });
+            Ext.DomHelper.append('div2', { tag: 'div', cls: 'ccc' });
+
+        }) 
+    </script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id='panel'></div>
+
+</body>
+
+</html>
