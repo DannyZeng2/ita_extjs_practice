@@ -9,7 +9,18 @@
     <title>Document</title>
     <script>
         Ext.onReady(function () {
-
+            var panel = new Ext.Toolbar({
+                renderTo: document.body,
+                items: [
+                    //'->',
+                    { text: 'Blog' },
+                    '-',
+                    { xtype: 'splitbutton', text: 'Edit' },
+                    '-',
+                    { xtype: 'splitbutton', text: 'Insert'},
+                   
+                ]
+            });
 
         }) 
     </script>
