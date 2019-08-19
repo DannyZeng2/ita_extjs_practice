@@ -19,7 +19,7 @@
                     {
                         text: 'Table',
                         handler: function () {
-                            Ext.getCmp('window').show()
+                            Ext.getCmp('window').show();
                         }
                     }]
             });
@@ -27,23 +27,24 @@
             var contextMenu = new Ext.menu.Menu({
                 items: [
                     {
-                        text:"Edit",
-                        menu:editMenu
+                        text: "Edit",
+                        menu: editMenu
                     },
                     {
-                        text:"Insert",
-                        menu:insertMenu
+                        text: "Insert",
+                        menu: insertMenu
                     }
                 ]
             });
 
-            Ext.get(document).on('contextmenu', function (e) {
-                e.preventDefault();
-                contextMenu.showAt(e.getXY());
-            });
+            // Ext.get(document).on('contextmenu', function (e) {
+            //     e.preventDefault();
+            //     contextMenu.showAt(e.getXY());
+            // });
 
 
             var title = new Ext.form.TextField({
+                id: 'title',
                 width: 200,
                 fieldLabel: '标题',
                 blankText: '请输入标题',
@@ -51,7 +52,7 @@
 
 
             var context = new Ext.form.TextArea({
-                id: 'textArea',
+                id: 'context',
                 width: 300,
                 height: 400,
                 preventScrollbars: true,
@@ -70,7 +71,9 @@
                 items: [title, context],
                 buttons: [{
                     text: '确定',
-                    handler: function () { }
+                    handler: function () { addBlog();
+                        Ext.getCmp('window').close();
+                     }
                 }, {
                     text: 'Reset',
                     handler: function () { Ext.getCmp('form').getForm().reset(); }
@@ -109,19 +112,31 @@
                 ]
             });
 
-            var textArea = new Ext.form.TextArea({
-                id: 'textArea',
-                renderTo: 'blog',
-                width: 400,
-                height: 400,
-                style: 'margin:100px 0px 0px 500px',
-
+            var panel = new Ext.Panel({
+                renderTo: 'panel',
+                width: 500,
+                height: 300,
+                style: 'margin:80px 0px 0px 500px',
+                html: "<div id='template'></div>"
             });
-            textArea.render();
+            panel.render();
 
+            var template = Ext.DomHelper.createTemplate({
+                tag: 'tr', children: [
+                    { tag: 'td', html: '{title}' },
+                    { tag: 'br' },
+                    { tag: 'td', html: '{context}' },
+                    { tag: 'br' },
+                ]
+            });
 
-
-        }) 
+            function addBlog() {
+                var obj = {};
+                obj.title = Ext.getCmp('title').getValue();
+                obj.context = Ext.getCmp('context').getValue();
+                template.append('template', obj);
+            }
+        });
     </script>
     <style>
     </style>
@@ -129,7 +144,7 @@
 
 <body>
     <div id='tbar'></div>
-    <div id='blog'></div>
+    <div id='panel'></div>
 </body>
 
 </html>
