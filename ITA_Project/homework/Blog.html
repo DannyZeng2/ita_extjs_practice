@@ -10,12 +10,9 @@
     <script>
         Ext.onReady(function () {
 
-
-
             var editMenu = new Ext.menu.Menu({
                 items: [{ text: 'Reset' }]
             });
-
 
             var insertMenu = new Ext.menu.Menu({
                 items: [
@@ -27,11 +24,29 @@
                     }]
             });
 
+            var contextMenu = new Ext.menu.Menu({
+                items: [
+                    {
+                        text:"Edit",
+                        menu:editMenu
+                    },
+                    {
+                        text:"Insert",
+                        menu:insertMenu
+                    }
+                ]
+            });
+
+            Ext.get(document).on('contextmenu', function (e) {
+                e.preventDefault();
+                contextMenu.showAt(e.getXY());
+            });
+
+
             var title = new Ext.form.TextField({
                 width: 200,
                 fieldLabel: '标题',
                 blankText: '请输入标题',
-                maxLengthText: '姓名不能超过4个字符'
             });
 
 
@@ -41,28 +56,28 @@
                 height: 400,
                 preventScrollbars: true,
                 fieldLabel: '正文',
+                blankText: '请输入内容',
             });
-            
 
 
             var form = new Ext.form.FormPanel({
-                id:'form',
+                id: 'form',
                 frame: true,
                 height: 400,
                 labelWidth: 40,
                 defaultType: 'textfield',
                 buttonAlign: 'center',
-                items: [title,context],
+                items: [title, context],
                 buttons: [{
                     text: '确定',
                     handler: function () { }
                 }, {
                     text: 'Reset',
-                    handler: function () {  }
+                    handler: function () { Ext.getCmp('form').getForm().reset(); }
                 }]
             });
 
-            
+
 
             var window = new Ext.Window({
                 id: "window",
@@ -79,7 +94,7 @@
 
                 items: [form]
             });
-            
+
 
             var panel = new Ext.Toolbar({
                 renderTo: 'tbar',
