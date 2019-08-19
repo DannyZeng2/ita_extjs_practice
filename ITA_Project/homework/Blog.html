@@ -10,12 +10,7 @@
     <script>
         Ext.onReady(function () {
 
-            var title = new Ext.form.TextField({
-                width: 200,
-                fieldLabel: '标题',
-                blankText: '请输入标题',
-                maxLengthText: '姓名不能超过4个字符'
-            });
+
 
             var editMenu = new Ext.menu.Menu({
                 items: [{ text: 'Reset' }]
@@ -27,36 +22,54 @@
                     {
                         text: 'Table',
                         handler: function () {
-                            Ext.getCmp('context').show()
+                            Ext.getCmp('window').show()
                         }
                     }]
             });
 
+            var title = new Ext.form.TextField({
+                width: 200,
+                fieldLabel: '标题',
+                blankText: '请输入标题',
+                maxLengthText: '姓名不能超过4个字符'
+            });
+
+
+            var context = new Ext.form.TextArea({
+                id: 'textArea',
+                width: 300,
+                height: 400,
+                preventScrollbars: true,
+                fieldLabel: '正文',
+            });
             
 
 
             var form = new Ext.form.FormPanel({
+                id:'form',
                 frame: true,
-                height: 300,
-                labelWidth: 70,
+                height: 400,
+                labelWidth: 40,
+                defaultType: 'textfield',
                 buttonAlign: 'center',
-                items: [title
-                ],
+                items: [title,context],
                 buttons: [{
                     text: '确定',
-                    handler: function () { alert('保存方法!') }
+                    handler: function () { }
                 }, {
-                    text: '取消',
-                    handler: function () { alert('重置方法!') }
+                    text: 'Reset',
+                    handler: function () {  }
                 }]
             });
 
-            var context = new Ext.Window({
-                id: "context",
-                title: "示例窗口",
+            
+
+            var window = new Ext.Window({
+                id: "window",
+                title: "添加博客",
 
                 width: 400,
-                height: 300,
+                height: 430,
                 resizable: true,
                 modal: true,
                 closable: true,
@@ -64,11 +77,8 @@
                 minimizable: true,
                 buttonAlign: 'center',
 
-                items: form,
+                items: [form]
             });
-
-           // context.show();
-
             
 
             var panel = new Ext.Toolbar({
