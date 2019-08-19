@@ -9,22 +9,31 @@
     <title>Document</title>
     <script>
         Ext.onReady(function () {
+            var editMenu = new Ext.menu.Menu({
+                items: [{ text: 'Reset' }]
+            });
+
+
+            var insertMenu = new Ext.menu.Menu({
+                items: [{ text: 'Table' }]
+            });
+
             var panel = new Ext.Toolbar({
                 renderTo: document.body,
                 items: [
                     //'->',
                     { text: 'Blog' },
                     '-',
-                    { xtype: 'splitbutton', text: 'Edit' },
+                    { xtype: 'splitbutton', text: 'Edit', menu: editMenu },
                     '-',
-                    { xtype: 'splitbutton', text: 'Insert'},
-                   
+                    { xtype: 'splitbutton', text: 'Insert', menu: insertMenu },
+
                 ]
             });
 
         }) 
     </script>
-    <style>        
+    <style>
     </style>
 </head>
 
