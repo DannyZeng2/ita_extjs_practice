@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="../../resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="../../ext-all.js" type="text/javascript"></script>
+    <title>Document</title>
+    <script>
+
+
+        
+        Ext.onReady(function () {
+            //encode
+            var obj = {};
+            obj.name = 'aaa';
+            obj.age = '22';
+            obj.sex = 'male';
+            console.log(obj);
+            console.log(Ext.encode(obj));
+
+            //decode
+            var obj2 = "{name:'bbb',age:'25',sex:'female'}";
+            console.log(obj2);
+            console.log(Ext.decode(obj2))
+
+            //apply applyIf
+            var obj3 = {};
+            obj3.name = 'aaa';
+            obj3.age = '22';
+            obj3.sex = 'female';
+            
+            var obj4 = {};
+            obj4.sex = 'male';
+
+            var obj5 = {};
+            obj5.phone = 12333233444;
+
+            var result1 = Ext.apply(obj3,obj4,obj5);
+            var result2 = Ext.applyIf(obj3,obj4);
+            console.log(result1);
+            console.log(result2)
+
+
+            
+
+        }) 
+    </script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id=''></div>
+</body>
+
+</html>

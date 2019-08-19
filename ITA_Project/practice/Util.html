@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="../../resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="../../ext-all.js" type="text/javascript"></script>
+    <title>Document</title>
+    <script>
+        Ext.onReady(function () {
+
+            var undoItem = new Ext.menu.Item({ text: 'Undo' });
+            var redoItem = new Ext.menu.Item({ text: 'Redo' });
+            var checkItem1 = new Ext.menu.CheckItem({ text: 'check1', checked: true });
+            var checkItem2 = new Ext.menu.CheckItem({ text: 'check2', disabled: true });
+            var checkItem3 = new Ext.menu.CheckItem({ text: 'check3' });
+            var checkItem4 = new Ext.menu.CheckItem({ text: 'check4' });
+
+            var viewMenu = new Ext.menu.Menu({
+                minWidth: 50,
+                items: [{ text: 'Run' }, { text: 'Search', menu: [{ text: '111' }, '-', { text: '222' }, 'separator', { text: '222' }] }]
+            });
+
+            var date = new Ext.menu.DateMenu({
+                hideOnClick: false,
+                handler: function (item, val) {
+                    Ext.Msg.alert('Info', new Date(val).format("Y-m-d"));
+                }
+            });
+
+            var color = new Ext.menu.ColorMenu({
+                hideOnClick: false,
+                handler: function (item, val) {
+                    Ext.Msg.alert('Info', val);
+                }
+            });
+
+            var button = new Ext.Button({
+                text:"Button",
+                handler:function(){
+                    console.log(Ext.getCmp('toolBar'));
+                    console.log(Ext.get('toolBar').getColor());
+                    console.log(Ext.getDom('toolBar'));
+                    console.log(Ext.getBody());
+                    console.log(Ext.getDoc());
+                }
+            });
+
+
+            var panel = new Ext.Toolbar({
+                id:'toolBar',
+                renderTo: document.body,
+                width: 600,
+                //height: 20,
+                items: [
+                    //'->',
+                    { text: 'Menu' },
+                    '-',
+                    { xtype: 'splitbutton', text: 'File', menu: [{ xtype: 'tbtext', text: 'group' }, { text: 'New File' }, { text: 'Open File' }] },
+                    ' ',
+                    { xtype: 'splitbutton', text: 'Edit', menu: [undoItem, redoItem] },
+                    { xtype: 'tbseparator' },
+                    { xtype: 'splitbutton', text: 'View', menu: viewMenu },
+                    ' ',
+                    button,
+                    { xtype: 'splitbutton', text: 'Check', menu: [checkItem1, checkItem2, checkItem3, checkItem4] },
+                    { xtype: 'tbspacer', width: 100 },
+                    { xtype: 'splitbutton', text: 'Date', menu: date },
+                    { xtype: 'splitbutton', text: 'Draw', menu: color },
+                    '->',
+                    { xtype: 'splitbutton', text: 'Proflie' },
+                    { xtype: 'tbfill' },
+                    { xtype: 'splitbutton', text: 'Setting' },
+                    
+                ]
+            });
+
+            
+        
+
+            
+        });
+
+        
+    </script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id=''></div>
+</body>
+
+</html>
