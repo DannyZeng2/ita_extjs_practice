@@ -71,9 +71,11 @@
                 items: [title, context],
                 buttons: [{
                     text: '确定',
-                    handler: function () { addBlog();
-                        Ext.getCmp('window').close();
-                     }
+                    handler: function () {
+                        addBlog();
+                        Ext.getCmp('window').hide();
+                        Ext.getCmp('form').getForm().reset();
+                    }
                 }, {
                     text: 'Reset',
                     handler: function () { Ext.getCmp('form').getForm().reset(); }
@@ -112,39 +114,73 @@
                 ]
             });
 
-            var panel = new Ext.Panel({
-                renderTo: 'panel',
-                width: 500,
-                height: 300,
-                style: 'margin:80px 0px 0px 500px',
-                html: "<div id='template'></div>"
-            });
-            panel.render();
+
 
             var template = Ext.DomHelper.createTemplate({
-                tag: 'tr', children: [
-                    { tag: 'td', html: '{title}' },
-                    { tag: 'br' },
-                    { tag: 'td', html: '{context}' },
-                    { tag: 'br' },
-                ]
+
+                tag: 'div', cls: 'div1', children: [{
+                    tag: 'tr', children: [
+
+                        { tag: 'td', html: '<h1>{title}</h1>' },
+                        { tag: 'div', cls: 'date', html: '{currentTime}' },
+                        { tag: 'td', html: '{context}' },
+                        { tag: 'br' }
+                    ]
+                }]
+
+
             });
 
             function addBlog() {
                 var obj = {};
                 obj.title = Ext.getCmp('title').getValue();
                 obj.context = Ext.getCmp('context').getValue();
+                obj.currentTime = new Date().format("Y-m-d H:m");
                 template.append('template', obj);
             }
         });
     </script>
-    <style>
-    </style>
+
 </head>
 
 <body>
     <div id='tbar'></div>
-    <div id='panel'></div>
+    <div id='blog'>
+        <div id='template'></div>
+    </div>
+
+    <style>
+        #blog {
+            margin-top: 40px;
+            margin: 0 auto;
+            width: 500px;
+
+        }
+
+        #template {
+
+            width: 500px;
+            height: 300px;
+        }
+
+        .div1 {
+            padding: 10px 10px 10px 10px;
+            margin: 20px 20px 20px 20px;
+            border: 3px lightgray solid;
+        }
+
+        .date {
+            margin-left: 320px;
+            font-size: 12px
+        }
+
+        .myPic {}
+
+        h1 {
+            margin: 0px 0px 10px 0px;
+        }
+    </style>
+
 </body>
 
 </html>
