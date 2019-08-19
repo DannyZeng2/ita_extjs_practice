@@ -38,10 +38,10 @@
                 ]
             });
 
-            // Ext.get(document).on('contextmenu', function (e) {
-            //     e.preventDefault();
-            //     contextMenu.showAt(e.getXY());
-            // });
+            Ext.get(document).on('contextmenu', function (e) {
+                e.preventDefault();
+                contextMenu.showAt(e.getXY());
+            });
 
 
             var title = new Ext.form.TextField({
@@ -154,6 +154,8 @@
 
             function msgHide() {
                 Ext.MessageBox.hide();
+                Ext.Msg.alert('Info','Success')
+               
             }
         });
     </script>
