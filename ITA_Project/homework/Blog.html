@@ -19,6 +19,7 @@
                     {
                         text: 'Table',
                         handler: function () {
+
                             Ext.getCmp('window').show();
                         }
                     }]
@@ -71,11 +72,21 @@
                 items: [title, context],
                 buttons: [{
                     text: '确定',
-                    handler: function () {
-                        addBlog();
-                        Ext.getCmp('window').hide();
-                        Ext.getCmp('form').getForm().reset();
-                    }
+                    handler:
+
+                        function () {
+                            var task = new Ext.util.DelayedTask(function () {                   
+                                addBlog();
+                                Ext.getCmp('form').getForm().reset();
+                            }
+                            );
+                            task.delay(3000);
+
+                            Ext.MessageBox.wait('请等待', '数据读取中……');
+                            setTimeout(msgHide, 3000);
+                            Ext.getCmp('window').hide();
+                           
+                        }
                 }, {
                     text: 'Reset',
                     handler: function () { Ext.getCmp('form').getForm().reset(); }
@@ -132,11 +143,17 @@
             });
 
             function addBlog() {
+                
                 var obj = {};
                 obj.title = Ext.getCmp('title').getValue();
                 obj.context = Ext.getCmp('context').getValue();
                 obj.currentTime = new Date().format("Y-m-d H:m");
                 template.append('template', obj);
+                console.log("123243532")
+            }
+
+            function msgHide() {
+                Ext.MessageBox.hide();
             }
         });
     </script>
