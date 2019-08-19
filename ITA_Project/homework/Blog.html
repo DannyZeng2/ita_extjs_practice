@@ -9,14 +9,67 @@
     <title>Document</title>
     <script>
         Ext.onReady(function () {
+
+            var title = new Ext.form.TextField({
+                width: 200,
+                fieldLabel: '标题',
+                blankText: '请输入标题',
+                maxLengthText: '姓名不能超过4个字符'
+            });
+
             var editMenu = new Ext.menu.Menu({
                 items: [{ text: 'Reset' }]
             });
 
 
             var insertMenu = new Ext.menu.Menu({
-                items: [{ text: 'Table' }]
+                items: [
+                    {
+                        text: 'Table',
+                        handler: function () {
+                            Ext.getCmp('context').show()
+                        }
+                    }]
             });
+
+            
+
+
+            var form = new Ext.form.FormPanel({
+                frame: true,
+                height: 300,
+                labelWidth: 70,
+                buttonAlign: 'center',
+                items: [title
+                ],
+                buttons: [{
+                    text: '确定',
+                    handler: function () { alert('保存方法!') }
+                }, {
+                    text: '取消',
+                    handler: function () { alert('重置方法!') }
+                }]
+            });
+
+            var context = new Ext.Window({
+                id: "context",
+                title: "示例窗口",
+
+                width: 400,
+                height: 300,
+                resizable: true,
+                modal: true,
+                closable: true,
+                maximizable: true,
+                minimizable: true,
+                buttonAlign: 'center',
+
+                items: form,
+            });
+
+           // context.show();
+
+            
 
             var panel = new Ext.Toolbar({
                 renderTo: 'tbar',
@@ -30,14 +83,14 @@
 
                 ]
             });
-            
+
             var textArea = new Ext.form.TextArea({
                 id: 'textArea',
                 renderTo: 'blog',
                 width: 400,
-                height:400,
-                style:'margin:100px 0px 0px 500px',
-                
+                height: 400,
+                style: 'margin:100px 0px 0px 500px',
+
             });
             textArea.render();
 
