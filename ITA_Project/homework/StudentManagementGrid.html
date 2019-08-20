@@ -212,16 +212,20 @@
                     itemclick: function (item) {
                         switch (item.id) {
                             case 'up':
-                            upOrDownMove(-1);
+                                upOrDownMove(-1);
 
                                 break;
                             case 'down':
-                            upOrDownMove(1);
+                                upOrDownMove(1);
                                 break;
                             case 'first':
+                                firstOrLastMove(0)
+                                console.log()
 
                                 break;
                             case 'last':
+                                firstOrLastMove(store.totalLength - 1)
+
 
                         }
                     }
@@ -281,21 +285,30 @@
             }
 
             function upOrDownMove(direction) {
+
                 var selections = grid.getSelectionModel().getSelected();
-                if (selections) {
-                    var index =store.indexOf(selections);
-                    if (index > 0) {
-                        store.removeAt(index);
-                        store.insert(index+direction, selections);
-                        grid.getSelectionModel().selectRow(index +direction);
-                        grid.view.refresh();
-                    }
-                } else {
-                    Ext.Msg.alert('Warning', 'Please select one item!');
+                var index = store.indexOf(selections);
+
+                if (index > 0) {
+                    store.removeAt(index);
+                    store.insert(index + direction, selections);
+                    grid.getSelectionModel().selectRow(direction);
+                    grid.view.refresh();
                 }
+
             }
 
+            function firstOrLastMove(direction) {
+        
+                var selections = grid.getSelectionModel().getSelected();
+                var index = store.indexOf(selections);
 
+                store.removeAt(index);
+                store.insert(direction, selections);
+                grid.getSelectionModel().selectRow(direction);
+                grid.view.refresh();
+
+            }
         });
     </script>
 </head>
