@@ -2,16 +2,19 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>03.grid</title>
+    <title>Student Management</title>
     <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
     <script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="../../ext-all.js"></script>
-    .
     <script type="text/javascript" src="../../PagingMemoryProxy.js"></script>
 
     <script type="text/javascript">
+
         Ext.onReady(function () {
             //Ext.QuickTips.init();
+            const UP = -1;
+            const DOWN = 1;
+            const FIRST = 0;
 
             var data = [
                 ['avatar', 'Danny', 'class1', '男', '22', '1997-12-02'],
@@ -91,7 +94,6 @@
                 height: 300,
                 layoutConfig: {
                     labelSeparator: ':',
-                    // renderHidden:true
                 },
                 defaultType: 'textfield',
                 items: [{
@@ -119,8 +121,7 @@
 
             var window = new Ext.Window({
                 id: "window",
-                title: "添加博客",
-
+                title: "添加学生",
                 width: 400,
                 height: 270,
                 resizable: true,
@@ -155,21 +156,14 @@
 
             ])
 
-            // var store = new Ext.data.GroupingStore({
-            //     reader: reader,
-            //     data: data,
-            //     groupField: 'sex',
-            //     sortInfo: {field: 'id', direction: "ASC"}
-            // });
-
             var store = new Ext.data.GroupingStore({
                 proxy: new Ext.data.PagingMemoryProxy(data),
                 data: data,
                 groupField: 'class',
-                //sortInfo: {field: 'id', direction: "ASC"},
                 reader: new Ext.data.ArrayReader({}, studentRecord)
             });
             store.load();
+            const LAST = store.totalLength - 1;
 
             Ext.get('add').on('click', function () {
                 window.show();
@@ -212,19 +206,17 @@
                     itemclick: function (item) {
                         switch (item.id) {
                             case 'up':
-                                upOrDownMove(-1);
+                                upOrDownMove(UP);
 
                                 break;
                             case 'down':
-                                upOrDownMove(1);
+                                upOrDownMove(DOWN);
                                 break;
                             case 'first':
-                                firstOrLastMove(0)
-                                console.log()
-
+                                firstOrLastMove(FIRST);
                                 break;
                             case 'last':
-                                firstOrLastMove(store.totalLength - 1)
+                                firstOrLastMove(LAST);
 
 
                         }
@@ -239,12 +231,7 @@
                 contextmenu.showAt(e.getXY());
             });
 
-            // grid.on("cellcontextmenu", function (gird, rowIndex, cellIndex, event) {
-            //     console.log("--dfas-df--d-");
-            // });
-
             Ext.get('delete').on('click', function () {
-                //debugger;
                 var selections = Ext.getCmp("grid_id").getSelectionModel().getSelections();
                 console.log(selections)
                 if (Ext.isEmpty(selections)) {
@@ -292,6 +279,7 @@
                 if (index === 0 && direction === -1 || index === (store.totalLength - 1) && direction === 1) {
                     return;
                 }
+
                 store.removeAt(index);
                 store.insert(index + direction, selections);
                 grid.getSelectionModel().selectRow(direction);
