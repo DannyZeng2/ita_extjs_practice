@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>03.grid</title>
+        <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
+        <script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+        <script type="text/javascript" src="../../ext-all.js"></script>
+        <script type="text/javascript">
+Ext.onReady(function(){
+
+    var data = [
+        ['1','male','name1','descn'],
+        ['2','female','name2','descn'],
+        ['3','male','name3','descn'],
+        ['4','female','name4','descn'],
+        ['5','male','name5','descn']
+    ];
+
+    function renderMotif(data, cell, record, rowIndex, columnIndex, store){
+        var value = record.get('name')
+         cell.attr = "style=background-color:yellow" ;
+         return data;
+    }
+
+    var sm = new Ext.grid.CheckboxSelectionModel();
+
+    var cm = new Ext.grid.ColumnModel([
+        sm,
+        {header:'编号',dataIndex:'id',sortable:true},
+        {header:'性别',dataIndex:'gender',renderer:function(value){
+                if (value == 'male') {
+                    return "<span style='color:red;font-weight:bold;'>红男</span>";
+                } else {
+                    return "<span style='color:green;font-weight:bold;'>绿女</span>";
+                }
+            }},
+        {header:'名称',dataIndex:'name',renderer:renderMotif},         
+        {header:'描述',dataIndex:'descn',renderer:function(value){
+                    return '<input type="button" value="点击查看描述" ></input>';
+                } 
+            },
+    ]);
+
+
+
+    var store = new Ext.data.Store({
+        proxy: new Ext.data.MemoryProxy(data),
+        reader: new Ext.data.ArrayReader({}, [
+            {name: 'id'},
+            {name: 'gender'},
+            {name: 'name'},
+            {name: 'descn'}
+        ])
+    });
+    store.load();
+
+    Ext.get('delete').on('click', function() {
+        store.remove(store.getAt(data.length-1));
+        grid.view.refresh();
+    });
+
+    var grid = new Ext.grid.GridPanel({
+        autoHeight: true,
+        renderTo: 'grid',
+        store: store,
+        cm: cm,
+        sm:sm
+    });
+
+});
+        </script>
+    </head>
+    <body>
+        <div id="grid"></div>
+        <input type="button" id="delete" value="删除" ></input>
+    </body>
+</html>
