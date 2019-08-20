@@ -178,13 +178,17 @@
                 buttons: [{
                     text: '确定',
                     handler: function () {
-                        addInfo();
-                        
+                        addInfo();  
                     }
                 }, {
                     text: 'Reset',
                     handler: function () { Ext.getCmp('info').getForm().reset(); }
-                }]
+                }],
+                listeners:{
+                    hide : function() {
+                        Ext.getCmp('info').getForm().reset();
+                    }
+                }
             });
 
 
@@ -334,7 +338,6 @@
                 store.insert(index + direction, selections);
                 grid.getSelectionModel().selectRow(direction);
                 grid.view.refresh();
-
 
             }
 
