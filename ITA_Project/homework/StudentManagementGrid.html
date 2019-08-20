@@ -24,8 +24,8 @@
                 { header: '头像', dataIndex: 'avatar' },
                 { header: '姓名', dataIndex: 'name', sortable: true },
                 { header: '班级', dataIndex: 'class', sortable: true },
-                { header: '性别', dataIndex: 'gender', sortable: true },
-                { header: '年龄', dataIndex: 'age', sortable: true },
+                { header: '性别', dataIndex: 'gender' },
+                { header: '年龄', dataIndex: 'age' },
                 { header: '生日', dataIndex: 'birthday', width: 120 },
             ]);
 
@@ -100,9 +100,19 @@
                 { name: 'birthday' },
 
             ])
+            
+    // var store = new Ext.data.GroupingStore({
+    //     reader: reader,
+    //     data: data,
+    //     groupField: 'sex',
+    //     sortInfo: {field: 'id', direction: "ASC"}
+    // });
 
-            var store = new Ext.data.Store({
+            var store = new Ext.data.GroupingStore({
                 proxy: new Ext.data.MemoryProxy(data),
+                data: data,
+                groupField: 'class',
+                //sortInfo: {field: 'id', direction: "ASC"},
                 reader: new Ext.data.ArrayReader({}, studentRecord)
             });
             store.load();
@@ -117,6 +127,7 @@
                 renderTo: 'grid',
                 width: 640,
                 store: store,
+                view: new Ext.grid.GroupingView(),
                 cm: cm,
                 sm: sm
             });
@@ -142,6 +153,7 @@
                     store.insert(dataIndex, new studentRecord(student));
                 }
                  grid.view.refresh();
+                 Ext.getCmp('info').getForm().reset();
             }
 
         });
