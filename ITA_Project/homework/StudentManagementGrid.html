@@ -32,7 +32,7 @@
             ]);
 
             var form = new Ext.form.FormPanel({
-                id:'info',
+                id: 'info',
                 labelWidth: 75,
                 //layout:'absolute',
                 //renderTo: 'form',
@@ -82,7 +82,12 @@
                 buttonAlign: 'center',
                 items: [form],
                 buttons: [{
-                    text: '确定'
+                    text: '确定',
+                    handler: function () {
+
+                        addInfo();
+                        Ext.getCmp('window').hide();
+                    }
                 }, {
                     text: 'Reset',
                     handler: function () { Ext.getCmp('info').getForm().reset(); }
@@ -90,20 +95,20 @@
             });
 
 
+            var studentRecord = Ext.data.Record.create([
+                //   { name: 'id' },
+                { name: 'avatar' },
+                { name: 'name' },
+                { name: 'class' },
+                { name: 'gender' },
+                { name: 'age' },
+                { name: 'birthday' },
 
+            ])
 
             var store = new Ext.data.Store({
                 proxy: new Ext.data.MemoryProxy(data),
-                reader: new Ext.data.ArrayReader({}, [
-                    //   { name: 'id' },
-                    { name: 'avatar' },
-                    { name: 'name' },
-                    { name: 'class' },
-                    { name: 'gender' },
-                    { name: 'age' },
-                    { name: 'birthday' },
-
-                ])
+                reader: new Ext.data.ArrayReader({}, studentRecord)
             });
             store.load();
 
@@ -119,6 +124,30 @@
                 cm: cm,
                 sm: sm
             });
+
+            function addInfo() {
+                // var student = [];
+                // student.push(Ext.getCmp('avatar').getValue());
+                // student.push(Ext.getCmp('name').getValue());
+                // student.push(Ext.getCmp('class').getValue());
+                // student.push(Ext.getCmp('gender').getValue());
+                // student.push(Ext.getCmp('age').getValue());
+                // student.push(Ext.getCmp('birthday').getValue());
+                var student = {};
+                student.avatar = Ext.getCmp('avatar').getValue();
+                student.name = Ext.getCmp('name').getValue();
+                student.class = Ext.getCmp('class').getValue();
+                student.gender = Ext.getCmp('gender').getValue();
+                student.age = Ext.getCmp('age').getValue();
+                student.birthday = Ext.getCmp('birthday').getValue();
+
+                store.insert(0,new studentRecord(student));
+                grid.view.refresh();
+                // data.push(student);
+                // grid.view.refresh();
+
+                // console.log(data)
+            }
 
         });
     </script>
