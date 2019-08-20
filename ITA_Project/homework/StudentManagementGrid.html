@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
     <script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="../../ext-all.js"></script>
+    .<script type="text/javascript" src="../../PagingMemoryProxy.js"></script>
+
     <script type="text/javascript">
         Ext.onReady(function () {
             //Ext.QuickTips.init();
@@ -159,7 +161,7 @@
             // });
 
             var store = new Ext.data.GroupingStore({
-                proxy: new Ext.data.MemoryProxy(data),
+                proxy: new Ext.data.PagingMemoryProxy(data),
                 data: data,
                 groupField: 'class',
                 //sortInfo: {field: 'id', direction: "ASC"},
@@ -179,7 +181,14 @@
                 store: store,
                 view: new Ext.grid.GroupingView(),
                 cm: cm,
-                sm: sm
+                sm: sm,
+                bbar: new Ext.PagingToolbar({
+                    pageSize: 4,
+                    store: store,
+                    displayInfo: true,
+                    displayMsg: '显示第{0}条到第{1}条记录，一共{2}条',
+                    emptyMsg: "没有找到记录"
+                })
             });
 
             function addInfo() {
