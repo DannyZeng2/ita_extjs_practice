@@ -185,7 +185,7 @@
                 cm: cm,
                 sm: sm,
                 bbar: new Ext.PagingToolbar({
-                    pageSize: 4,
+                    pageSize: 5,
                     store: store,
                     displayInfo: true,
                     displayMsg: '显示第{0}条到第{1}条记录，一共{2}条',
@@ -193,15 +193,61 @@
                 })
             });
 
+            var contextmenu = new Ext.menu.Menu({
+                items: [{
+                    id: 'up',
+                    text: 'Up'
+                },
+                {
+                    id: 'down',
+                    text: 'Down'
+                }, {
+                    id: 'first',
+                    text: 'First'
+                }, {
+                    id: 'last',
+                    text: 'Last'
+                }],
+                listeners: {
+                    itemclick: function (item) {
+                        switch (item.id) {
+                            case 'up':
+                            upOrDownMove(-1);
+
+                                break;
+                            case 'down':
+                            upOrDownMove(1);
+                                break;
+                            case 'first':
+
+                                break;
+                            case 'last':
+
+                        }
+                    }
+                }
+            });
+
+
+            grid.on("rowcontextmenu", function (grid, rowIndex, e) {
+                e.preventDefault();
+                grid.getSelectionModel().selectRow(rowIndex);
+                contextmenu.showAt(e.getXY());
+            });
+
+            // grid.on("cellcontextmenu", function (gird, rowIndex, cellIndex, event) {
+            //     console.log("--dfas-df--d-");
+            // });
+
             Ext.get('delete').on('click', function () {
                 //debugger;
                 var selections = Ext.getCmp("grid_id").getSelectionModel().getSelections();
                 console.log(selections)
-                if (Ext.isEmpty(selections)) {    
+                if (Ext.isEmpty(selections)) {
                     return;
                 }
 
-                for (var i = 0;i<selections.length;i++) {
+                for (var i = 0; i < selections.length; i++) {
                     var selectData = selections[i];
                     var dataIndex = store.indexOf(selectData);
                     store.remove(store.getAt(dataIndex));
@@ -227,11 +273,26 @@
                     store.insert(0, new studentRecord(student));
                 } else {
                     var selectData = selections[0];
-                    var dataIndex = store.indexOf(selectData);
-                    store.insert(dataIndex, new studentRecord(student));
+                    var index = store.indexOf(selectData);
+                    store.insert(index, new studentRecord(student));
                 }
                 grid.view.refresh();
                 Ext.getCmp('info').getForm().reset();
+            }
+
+            function upOrDownMove(direction) {
+                var selections = grid.getSelectionModel().getSelected();
+                if (selections) {
+                    var index =store.indexOf(selections);
+                    if (index > 0) {
+                        store.removeAt(index);
+                        store.insert(index+direction, selections);
+                        grid.getSelectionModel().selectRow(index +direction);
+                        grid.view.refresh();
+                    }
+                } else {
+                    Ext.Msg.alert('Warning', 'Please select one item!');
+                }
             }
 
 
