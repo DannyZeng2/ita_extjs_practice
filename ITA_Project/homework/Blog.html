@@ -11,7 +11,18 @@
         Ext.onReady(function () {
 
             var editMenu = new Ext.menu.Menu({
-                items: [{ text: 'Reset' }]
+                items: [{
+                    text: 'Reset',
+                    handler: function () {
+                        var el = document.getElementsByClassName('div1')
+                        console.log(el)
+                        for(var node of el){
+                            console.log(node)
+                            node.parentNode.removeChild(node);
+                        }
+                        //el.parentNode.removeChild(el);
+                    }
+                }]
             });
 
             var insertMenu = new Ext.menu.Menu({
@@ -19,7 +30,6 @@
                     {
                         text: 'Table',
                         handler: function () {
-
                             Ext.getCmp('window').show();
                         }
                     }]
@@ -75,7 +85,7 @@
                     handler:
 
                         function () {
-                            var task = new Ext.util.DelayedTask(function () {                   
+                            var task = new Ext.util.DelayedTask(function () {
                                 addBlog();
                                 Ext.getCmp('form').getForm().reset();
                             }
@@ -85,7 +95,7 @@
                             Ext.MessageBox.wait('请等待', '数据读取中……');
                             setTimeout(msgHide, 3000);
                             Ext.getCmp('window').hide();
-                           
+
                         }
                 }, {
                     text: 'Reset',
@@ -106,6 +116,7 @@
                 closable: true,
                 maximizable: true,
                 minimizable: true,
+                closeAction: 'hide',
                 buttonAlign: 'center',
 
                 items: [form]
@@ -143,19 +154,19 @@
             });
 
             function addBlog() {
-                
+
                 var obj = {};
                 obj.title = Ext.getCmp('title').getValue();
                 obj.context = Ext.getCmp('context').getValue();
                 obj.currentTime = new Date().format("Y-m-d H:m");
                 template.append('template', obj);
-                console.log("123243532")
+                // console.log("123243532")
             }
 
             function msgHide() {
                 Ext.MessageBox.hide();
-                Ext.Msg.alert('Info','Success')
-               
+                Ext.Msg.alert('Info', 'Success')
+
             }
         });
     </script>
