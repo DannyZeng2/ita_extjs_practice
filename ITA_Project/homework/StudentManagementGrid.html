@@ -289,17 +289,19 @@
                 var selections = grid.getSelectionModel().getSelected();
                 var index = store.indexOf(selections);
 
-                if (index > 0) {
-                    store.removeAt(index);
-                    store.insert(index + direction, selections);
-                    grid.getSelectionModel().selectRow(direction);
-                    grid.view.refresh();
+                if (index === 0 && direction === -1 || index === (store.totalLength - 1) && direction === 1) {
+                    return;
                 }
+                store.removeAt(index);
+                store.insert(index + direction, selections);
+                grid.getSelectionModel().selectRow(direction);
+                grid.view.refresh();
+
 
             }
 
             function firstOrLastMove(direction) {
-        
+
                 var selections = grid.getSelectionModel().getSelected();
                 var index = store.indexOf(selections);
 
