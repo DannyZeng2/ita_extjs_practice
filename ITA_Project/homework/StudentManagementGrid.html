@@ -1,0 +1,74 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>03.grid</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
+    <script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../ext-all.js"></script>
+    <script type="text/javascript">
+        Ext.onReady(function () {
+
+            var data = [
+                ['1', 'avatar', 'Danny', 'class1', '男', '22', '1997-12-02'],
+                ['2', 'avatar', 'Jack', 'class2', '男', '22', '1997-12-02'],
+                ['3', 'avatar', 'Waylon', 'class3', '男', '22', '1997-12-02'],
+                ['4', 'avatar', 'Tiger', 'class1', '男', '22', '1997-12-02'],
+                ['5', 'avatar', 'Bill', 'class3', '男', '22', '1997-12-02']
+            ];
+
+            var sm = new Ext.grid.CheckboxSelectionModel();
+
+            var cm = new Ext.grid.ColumnModel([
+                
+                sm,
+                { header: '编号', dataIndex: 'id', sortable: true,width:40},
+                { header: '头像', dataIndex: 'avatar' },
+                { header: '姓名', dataIndex: 'name', sortable: true },
+                { header: '班级', dataIndex: 'class', sortable: true },
+                { header: '性别', dataIndex: 'gender', sortable: true },
+                { header: '年龄', dataIndex: 'age', sortable: true },
+                { header: '生日', dataIndex: 'birthday',width:120 },
+            ]);
+
+
+
+            var store = new Ext.data.Store({
+                proxy: new Ext.data.MemoryProxy(data),
+                reader: new Ext.data.ArrayReader({}, [
+                    { name: 'id' },
+                    { name: 'avatar' },
+                    { name: 'name' },
+                    { name: 'class' },
+                    { name: 'gender' },
+                    { name: 'age' },
+                    { name: 'birthday' },
+
+                ])
+            });
+            store.load();
+
+            Ext.get('delete').on('click', function () {
+                store.remove(store.getAt(data.length - 1));
+                grid.view.refresh();
+            });
+
+            var grid = new Ext.grid.GridPanel({
+                autoHeight: true,
+                renderTo: 'grid',
+                width: 680,
+                store: store,
+                cm: cm,
+                sm: sm
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="grid"></div>
+    <input type="button" id="delete" value="删除"></input>
+</body>
+
+</html>
