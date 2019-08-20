@@ -31,6 +31,57 @@
                 { header: '生日', dataIndex: 'birthday',width:120 },
             ]);
 
+            var form = new Ext.form.FormPanel({
+                labelWidth: 75,
+                //layout:'absolute',
+                //renderTo: 'form',
+                bodyStyle: 'padding:20px',
+                width: 400,
+                height:300,
+                layoutConfig: {
+                    labelSeparator: ':',
+                   // renderHidden:true
+                },
+                defaultType: 'textfield',
+                items: [{
+                    fieldLabel: '头像',
+                }, {
+                    fieldLabel: '姓名',
+                }, {
+                    fieldLabel: '班级',
+                }, {
+                    fieldLabel: '性别',
+                }, {
+                    fieldLabel: '年龄',
+                }, {
+                    fieldLabel: '生日',
+                }
+                ],
+                
+            });
+
+            var window = new Ext.Window({
+                id: "window",
+                title: "添加博客",
+
+                width: 400,
+                height: 270,
+                resizable: true,
+                modal: true,
+                closable: true,
+                maximizable: true,
+                minimizable: true,
+                closeAction: 'hide',
+                buttonAlign: 'center',
+                items: [form],
+                buttons: [{
+                    text: '确定'
+                }, {
+                    text: 'Reset'
+                }]
+            });
+
+
 
 
             var store = new Ext.data.Store({
@@ -48,9 +99,10 @@
             });
             store.load();
 
-            Ext.get('delete').on('click', function () {
-                store.remove(store.getAt(data.length - 1));
-                grid.view.refresh();
+            Ext.get('add').on('click', function () {
+                // store.add(store.getAt(data.length - 1));
+                // grid.view.refresh();
+                window.show();
             });
 
             var grid = new Ext.grid.GridPanel({
@@ -68,7 +120,7 @@
 
 <body>
     <div id="grid"></div>
-    <input type="button" id="delete" value="删除"></input>
+    <input type="button" id="add" value="Add"></input>
 </body>
 
 </html>
