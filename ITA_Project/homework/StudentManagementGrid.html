@@ -20,9 +20,7 @@
             var sm = new Ext.grid.CheckboxSelectionModel();
 
             var cm = new Ext.grid.ColumnModel([
-
                 sm,
-                // { header: '编号', dataIndex: 'id', sortable: true,width:40},
                 { header: '头像', dataIndex: 'avatar' },
                 { header: '姓名', dataIndex: 'name', sortable: true },
                 { header: '班级', dataIndex: 'class', sortable: true },
@@ -34,8 +32,6 @@
             var form = new Ext.form.FormPanel({
                 id: 'info',
                 labelWidth: 75,
-                //layout:'absolute',
-                //renderTo: 'form',
                 bodyStyle: 'padding:20px',
                 width: 400,
                 height: 300,
@@ -96,7 +92,6 @@
 
 
             var studentRecord = Ext.data.Record.create([
-                //   { name: 'id' },
                 { name: 'avatar' },
                 { name: 'name' },
                 { name: 'class' },
@@ -117,6 +112,7 @@
             });
 
             var grid = new Ext.grid.GridPanel({
+                id: 'grid_id',
                 autoHeight: true,
                 renderTo: 'grid',
                 width: 640,
@@ -126,13 +122,6 @@
             });
 
             function addInfo() {
-                // var student = [];
-                // student.push(Ext.getCmp('avatar').getValue());
-                // student.push(Ext.getCmp('name').getValue());
-                // student.push(Ext.getCmp('class').getValue());
-                // student.push(Ext.getCmp('gender').getValue());
-                // student.push(Ext.getCmp('age').getValue());
-                // student.push(Ext.getCmp('birthday').getValue());
                 var student = {};
                 student.avatar = Ext.getCmp('avatar').getValue();
                 student.name = Ext.getCmp('name').getValue();
@@ -141,12 +130,18 @@
                 student.age = Ext.getCmp('age').getValue();
                 student.birthday = Ext.getCmp('birthday').getValue();
 
-                store.insert(0,new studentRecord(student));
-                grid.view.refresh();
-                // data.push(student);
-                // grid.view.refresh();
+                var selections = Ext.getCmp("grid_id").getSelectionModel().getSelections();
 
-                // console.log(data)
+                data.push(student);
+                grid.view.refresh();
+                if (Ext.isEmpty(selections)) {     
+                    store.insert(0, new studentRecord(student));
+                } else {
+                    var selectData = selections[0];
+                    var dataIndex = store.indexOf(selectData);
+                    store.insert(dataIndex, new studentRecord(student));
+                }
+                 grid.view.refresh();
             }
 
         });
