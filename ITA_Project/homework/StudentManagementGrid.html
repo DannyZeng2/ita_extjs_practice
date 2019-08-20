@@ -204,7 +204,6 @@
 
             var store = new Ext.data.GroupingStore({
                 proxy: new Ext.data.PagingMemoryProxy(data),
-                data: data,
                 groupField: 'class',
                 reader: new Ext.data.ArrayReader({}, studentRecord)
             });
@@ -225,13 +224,15 @@
                 cm: cm,
                 sm: sm,
                 bbar: new Ext.PagingToolbar({
-                    pageSize: 5,
+                    pageSize: 3,
                     store: store,
                     displayInfo: true,
                     displayMsg: '显示第{0}条到第{1}条记录，一共{2}条',
                     emptyMsg: "没有找到记录"
                 })
             });
+
+            store.load({params:{start:0,limit:3}});
 
             var contextmenu = new Ext.menu.Menu({
                 items: [{
