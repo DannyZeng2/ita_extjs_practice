@@ -86,6 +86,14 @@
                 },
             ]);
 
+            var datefield = new Ext.form.DateField({
+                id:'birthday',
+                fieldLabel: '出生日期',
+                editable: false,
+                allowBlank: false,
+                blankText: '请选择日期'
+            });
+
             var form = new Ext.form.FormPanel({
                 id: 'info',
                 labelWidth: 75,
@@ -111,10 +119,8 @@
                 }, {
                     id: 'age',
                     fieldLabel: '年龄',
-                }, {
-                    id: 'birthday',
-                    fieldLabel: '生日',
-                }
+                }, 
+                datefield
                 ],
 
             });
@@ -254,7 +260,7 @@
                 student.class = Ext.getCmp('class').getValue();
                 student.gender = Ext.getCmp('gender').getValue();
                 student.age = Ext.getCmp('age').getValue();
-                student.birthday = Ext.getCmp('birthday').getValue();
+                student.birthday = new Date(Ext.getCmp('birthday').getValue()).format("Y-m-d");
 
                 var selections = Ext.getCmp("grid_id").getSelectionModel().getSelections();
 
