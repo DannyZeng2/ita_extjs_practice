@@ -8,6 +8,7 @@
     <script type="text/javascript" src="../../ext-all.js"></script>
     <script type="text/javascript">
         Ext.onReady(function () {
+            //Ext.QuickTips.init();
 
             var data = [
                 ['avatar', 'Danny', 'class1', '男', '22', '1997-12-02'],
@@ -21,12 +22,61 @@
 
             var cm = new Ext.grid.ColumnModel([
                 sm,
-                { header: '头像', dataIndex: 'avatar' },
-                { header: '姓名', dataIndex: 'name', sortable: true },
-                { header: '班级', dataIndex: 'class', sortable: true },
-                { header: '性别', dataIndex: 'gender' },
-                { header: '年龄', dataIndex: 'age' },
-                { header: '生日', dataIndex: 'birthday', width: 120 },
+                {
+                    header: '头像',
+                    dataIndex: 'avatar',
+                    editor: new Ext.grid.GridEditor(
+                        new Ext.form.TextField({
+                            allowBlank: false
+                        })
+                    )
+                },
+                {
+                    header: '姓名',
+                    dataIndex: 'name',
+                    sortable: true,
+                    editor: new Ext.grid.GridEditor(
+                        new Ext.form.TextField({
+                            allowBlank: false
+                        })
+                    )
+                },
+                {
+                    header: '班级',
+                    dataIndex:
+                        'class',
+                    sortable: true,
+                    editor: new Ext.grid.GridEditor(
+                        new Ext.form.TextField({
+                            allowBlank: false
+                        })
+                    )
+                },
+                {
+                    header: '性别',
+                    dataIndex: 'gender',
+                    editor: new Ext.grid.GridEditor(
+                        new Ext.form.TextField({
+                            allowBlank: false
+                        })
+                    )
+                },
+                {
+                    header: '年龄', dataIndex: 'age',
+                    editor: new Ext.grid.GridEditor(
+                        new Ext.form.TextField({
+                            allowBlank: false
+                        })
+                    )
+                },
+                {
+                    header: '生日', dataIndex: 'birthday',
+                    editor: new Ext.grid.GridEditor(
+                        new Ext.form.TextField({
+                            allowBlank: false
+                        })
+                    ), width: 120
+                },
             ]);
 
             var form = new Ext.form.FormPanel({
@@ -100,13 +150,13 @@
                 { name: 'birthday' },
 
             ])
-            
-    // var store = new Ext.data.GroupingStore({
-    //     reader: reader,
-    //     data: data,
-    //     groupField: 'sex',
-    //     sortInfo: {field: 'id', direction: "ASC"}
-    // });
+
+            // var store = new Ext.data.GroupingStore({
+            //     reader: reader,
+            //     data: data,
+            //     groupField: 'sex',
+            //     sortInfo: {field: 'id', direction: "ASC"}
+            // });
 
             var store = new Ext.data.GroupingStore({
                 proxy: new Ext.data.MemoryProxy(data),
@@ -121,7 +171,7 @@
                 window.show();
             });
 
-            var grid = new Ext.grid.GridPanel({
+            var grid = new Ext.grid.EditorGridPanel({
                 id: 'grid_id',
                 autoHeight: true,
                 renderTo: 'grid',
@@ -145,15 +195,15 @@
 
                 data.push(student);
                 grid.view.refresh();
-                if (Ext.isEmpty(selections)) {     
+                if (Ext.isEmpty(selections)) {
                     store.insert(0, new studentRecord(student));
                 } else {
                     var selectData = selections[0];
                     var dataIndex = store.indexOf(selectData);
                     store.insert(dataIndex, new studentRecord(student));
                 }
-                 grid.view.refresh();
-                 Ext.getCmp('info').getForm().reset();
+                grid.view.refresh();
+                Ext.getCmp('info').getForm().reset();
             }
 
         });
