@@ -11,7 +11,8 @@
     <script type="text/javascript">
 
         Ext.onReady(function () {
-            //Ext.QuickTips.init();
+            Ext.QuickTips.init();
+            
             const UP = -1;
             const DOWN = 1;
             const FIRST = 0;
@@ -86,12 +87,45 @@
                 },
             ]);
 
-            var datefield = new Ext.form.DateField({
+            var dateField = new Ext.form.DateField({
                 id:'birthday',
                 fieldLabel: '出生日期',
+                width:145,
                 editable: false,
                 allowBlank: false,
                 blankText: '请选择日期'
+            });
+
+            var genderField = new Ext.form.ComboBox({
+                id: 'gender',
+                fieldLabel: '性别',
+                width:145,
+                editable: false,
+                allowBlank: false,
+                mode: 'local',
+                store: new Ext.data.ArrayStore({
+                    id: 0,
+                    fields: ['gender', 'description'],
+                    data: [['男', '男'], ['女', '女']]
+                }),
+                valueField: 'gender',
+                displayField: 'description'
+            });
+
+            var classField = new Ext.form.ComboBox({
+                id: 'class',
+                fieldLabel: '班级',
+                width:145,
+                editable: false,
+                allowBlank: false,
+                mode: 'local',
+                store: new Ext.data.ArrayStore({
+                    id: 0,
+                    fields: ['class', 'description'],
+                    data: [['class1', 'class1'], ['class2', 'class2'], ['class3', 'class3'], ['class4', 'class4']]
+                }),
+                valueField: 'class',
+                displayField: 'description'
             });
 
             var form = new Ext.form.FormPanel({
@@ -110,17 +144,11 @@
                 }, {
                     id: 'name',
                     fieldLabel: '姓名',
-                }, {
-                    id: 'class',
-                    fieldLabel: '班级',
-                }, {
-                    id: 'gender',
-                    fieldLabel: '性别',
-                }, {
+                },classField, genderField, {
                     id: 'age',
                     fieldLabel: '年龄',
                 }, 
-                datefield
+                dateField
                 ],
 
             });
