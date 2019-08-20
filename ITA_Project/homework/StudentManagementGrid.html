@@ -6,7 +6,8 @@
     <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
     <script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="../../ext-all.js"></script>
-    .<script type="text/javascript" src="../../PagingMemoryProxy.js"></script>
+    .
+    <script type="text/javascript" src="../../PagingMemoryProxy.js"></script>
 
     <script type="text/javascript">
         Ext.onReady(function () {
@@ -192,6 +193,23 @@
                 })
             });
 
+            Ext.get('delete').on('click', function () {
+                //debugger;
+                var selections = Ext.getCmp("grid_id").getSelectionModel().getSelections();
+                console.log(selections)
+                if (Ext.isEmpty(selections)) {    
+                    return;
+                }
+
+                for (var i = 0;i<selections.length;i++) {
+                    var selectData = selections[i];
+                    var dataIndex = store.indexOf(selectData);
+                    store.remove(store.getAt(dataIndex));
+                    grid.view.refresh();
+                }
+
+            });
+
             function addInfo() {
                 var student = {};
                 student.avatar = Ext.getCmp('avatar').getValue();
@@ -216,6 +234,7 @@
                 Ext.getCmp('info').getForm().reset();
             }
 
+
         });
     </script>
 </head>
@@ -223,6 +242,7 @@
 <body>
     <div id="grid"></div>
     <input type="button" id="add" value="Add"></input>
+    <input type="button" id="delete" value="Delete"></input>
 </body>
 
 </html>
