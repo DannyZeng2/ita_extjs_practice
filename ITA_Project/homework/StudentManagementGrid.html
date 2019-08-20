@@ -10,54 +10,61 @@
         Ext.onReady(function () {
 
             var data = [
-                ['1', 'avatar', 'Danny', 'class1', '男', '22', '1997-12-02'],
-                ['2', 'avatar', 'Jack', 'class2', '男', '22', '1997-12-02'],
-                ['3', 'avatar', 'Waylon', 'class3', '男', '22', '1997-12-02'],
-                ['4', 'avatar', 'Tiger', 'class1', '男', '22', '1997-12-02'],
-                ['5', 'avatar', 'Bill', 'class3', '男', '22', '1997-12-02']
+                ['avatar', 'Danny', 'class1', '男', '22', '1997-12-02'],
+                ['avatar', 'Jack', 'class2', '男', '22', '1997-12-02'],
+                ['avatar', 'Waylon', 'class3', '男', '22', '1997-12-02'],
+                ['avatar', 'Tiger', 'class1', '男', '22', '1997-12-02'],
+                ['avatar', 'Bill', 'class3', '男', '22', '1997-12-02']
             ];
 
             var sm = new Ext.grid.CheckboxSelectionModel();
 
             var cm = new Ext.grid.ColumnModel([
-                
+
                 sm,
-                { header: '编号', dataIndex: 'id', sortable: true,width:40},
+                // { header: '编号', dataIndex: 'id', sortable: true,width:40},
                 { header: '头像', dataIndex: 'avatar' },
                 { header: '姓名', dataIndex: 'name', sortable: true },
                 { header: '班级', dataIndex: 'class', sortable: true },
                 { header: '性别', dataIndex: 'gender', sortable: true },
                 { header: '年龄', dataIndex: 'age', sortable: true },
-                { header: '生日', dataIndex: 'birthday',width:120 },
+                { header: '生日', dataIndex: 'birthday', width: 120 },
             ]);
 
             var form = new Ext.form.FormPanel({
+                id:'info',
                 labelWidth: 75,
                 //layout:'absolute',
                 //renderTo: 'form',
                 bodyStyle: 'padding:20px',
                 width: 400,
-                height:300,
+                height: 300,
                 layoutConfig: {
                     labelSeparator: ':',
-                   // renderHidden:true
+                    // renderHidden:true
                 },
                 defaultType: 'textfield',
                 items: [{
+                    id: 'avatar',
                     fieldLabel: '头像',
                 }, {
+                    id: 'name',
                     fieldLabel: '姓名',
                 }, {
+                    id: 'class',
                     fieldLabel: '班级',
                 }, {
+                    id: 'gender',
                     fieldLabel: '性别',
                 }, {
+                    id: 'age',
                     fieldLabel: '年龄',
                 }, {
+                    id: 'birthday',
                     fieldLabel: '生日',
                 }
                 ],
-                
+
             });
 
             var window = new Ext.Window({
@@ -77,7 +84,8 @@
                 buttons: [{
                     text: '确定'
                 }, {
-                    text: 'Reset'
+                    text: 'Reset',
+                    handler: function () { Ext.getCmp('info').getForm().reset(); }
                 }]
             });
 
@@ -87,7 +95,7 @@
             var store = new Ext.data.Store({
                 proxy: new Ext.data.MemoryProxy(data),
                 reader: new Ext.data.ArrayReader({}, [
-                    { name: 'id' },
+                    //   { name: 'id' },
                     { name: 'avatar' },
                     { name: 'name' },
                     { name: 'class' },
@@ -100,15 +108,13 @@
             store.load();
 
             Ext.get('add').on('click', function () {
-                // store.add(store.getAt(data.length - 1));
-                // grid.view.refresh();
                 window.show();
             });
 
             var grid = new Ext.grid.GridPanel({
                 autoHeight: true,
                 renderTo: 'grid',
-                width: 680,
+                width: 640,
                 store: store,
                 cm: cm,
                 sm: sm
